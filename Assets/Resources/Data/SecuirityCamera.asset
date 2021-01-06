@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf5d5e33bab057c43929a11bc8f25f44, type: 3}
+  m_Name: SecuirityCamera
+  m_EditorClassIdentifier: 
+  _beats:
+  - _choices:
+    - _text: Hack?
+      _beatId: 2
+    _text: Camera
+    _id: 1
+  - _choices:
+    - _text: Continue?
+      _beatId: 5
+    _text: Accessing Camera's mechanical routines...
+    _id: 2
+  - _choices: []
+    _text: New Story Beat
+    _id: 3
+  - _choices: []
+    _text: New Story Beat
+    _id: 4
+  - _choices:
+    - _text: Continue?
+      _beatId: 6
+    _text: success!
+    _id: 5
+  - _choices:
+    - _text: Sentry Mode
+      _beatId: 7
+    - _text: Static
+      _beatId: 8
+    _text: 'Initiate command:'
+    _id: 6
+  - _choices:
+    - _text: Returning to default state
+      _beatId: 9
+    _text: Execute Sentry Mode...
+    _id: 7
+  - _choices:
+    - _text: Returning to default state
+      _beatId: 10
+    _text: Setting camera to static mode.
+    _id: 8
+  - _choices:
+    - _text: Return to default state
+      _beatId: 6
+    _text: Camera set to sentry mode.
+    _id: 9
+  - _choices:
+    - _text: Return to default state
+      _beatId: 6
+    _text: Camera set to static mode.
+    _id: 10
