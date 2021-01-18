@@ -124,6 +124,13 @@ public class Game : MonoBehaviour
         _currentBeat = data;
     }
 
+    public string GetCurrentBeatText()
+    {
+        if (_currentBeat != null)
+            return _currentBeat.DisplayText;
+        return "";
+    }
+
     private IEnumerator DoDisplay(BeatData data)
     {
         _output.Clear();

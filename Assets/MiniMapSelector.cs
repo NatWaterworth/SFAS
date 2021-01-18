@@ -5,17 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(Game))]
 public class MiniMapSelector : MonoBehaviour
 {
-
+    [SerializeField] bool takeInput;
     [SerializeField] Camera cam;
     [SerializeField] GameObject screen;
     [SerializeField] GameObject mouse;
     [SerializeField] Vector2 screenPosPercentage = Vector2.zero;
-    [SerializeField] ElectronicDevice selectedObject;
+    [SerializeField] ElectronicDevice selectedDevice;
     Vector2 mouseScreenPos;
 
-
-    ElectronicDevice selectedDevice;
-    string interactiveMessage;
     Game console;
 
 
@@ -27,6 +24,9 @@ public class MiniMapSelector : MonoBehaviour
 
     private void Update()
     {
+        if (!takeInput)
+            return;
+
         RaycastToMap();
         MoveMouseCursor();
         SelectHackableDevice();
@@ -45,11 +45,11 @@ public class MiniMapSelector : MonoBehaviour
     void SetSecuirityDeviceState()
     {
 
-        if (selectedDevice.Equals(typeof(SecuirityCamera)))
+        if (selectedDevice.GetType().Equals(typeof(SecuirityCamera)))
         {
-            if (interactiveMessage.Contains("static"))
+            if (console.GetCurrentBeatText().Contains("static"))
                 ((SecuirityCamera)selectedDevice).SetCameraState(SecuirityCamera.CameraState.Static);
-            else if (interactiveMessage.Contains("sentry mode"))
+            else if (console.GetCurrentBeatText().Contains("sentry mode"))
                 ((SecuirityCamera)selectedDevice).SetCameraState(SecuirityCamera.CameraState.SentryMode);
         }
     }
@@ -70,6 +70,13 @@ public class MiniMapSelector : MonoBehaviour
             screenPosPercentage = new Vector2(width, height);
         }
 
+    }
+    /// <summary>
+    /// Returns position as a percentage between min and max screen points
+    /// </summary>
+    public Vector2 GetScreenPosition()
+    {
+        return screenPosPercentage;
     }
 
     void MoveMouseCursor()
@@ -97,10 +104,11 @@ public class MiniMapSelector : MonoBehaviour
             Ray ray = cam.ScreenPointToRay(mouseScreenPos);
             RaycastHit hit;
             LayerMask mask = LayerMask.GetMask("Hackable");
-
+            
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
             {
                 Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
+                Debug.Log("Get hackable object: " + hit.collider.gameObject.name);
                 SetSelectedDevice(hit.collider.gameObject);
             }
         }
@@ -114,9 +122,8 @@ public class MiniMapSelector : MonoBehaviour
         Debug.Log("Selected Object: " + _selectedObject);
         if (_selectedObject.GetComponent<ElectronicDevice>() == null)
             return;
-        
-        selectedObject = _selectedObject.GetComponent<ElectronicDevice>();
-        Debug.Log("Selected Object: " + _selectedObject);
+
+        selectedDevice = _selectedObject.GetComponent<ElectronicDevice>();
 
         //Set console camera
         if (selectedDevice.HasDeviceCamera())
@@ -135,9 +142,9 @@ public class MiniMapSelector : MonoBehaviour
 
     public ElectronicDevice GetSelectedDevice()
     {
-        if (selectedObject!=null)
+        if (selectedDevice!=null)
         {
-            return selectedObject;
+            return selectedDevice;
         }
         return null;
     }

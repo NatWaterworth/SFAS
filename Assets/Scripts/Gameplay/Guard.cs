@@ -103,8 +103,8 @@ public class Guard : Character
 
         }
 
-
-        detector.DetectPlayer(transform, detectorOffset, detectionRadius);
+        if (detector.DetectPlayer(transform, detectorOffset, detectionRadius))
+            Debug.Log("Player Detected!");
 
     }
 

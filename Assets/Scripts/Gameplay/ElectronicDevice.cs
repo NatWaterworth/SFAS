@@ -21,9 +21,9 @@ public class ElectronicDevice : MonoBehaviour
 
     public bool HasDeviceCamera()
     {
-        if (deviceCamera != null)
-            return true;
-        return false;
+        if (deviceCamera == null)
+            return false;
+        return true;
     }
 
     public bool HasDeviceData()
