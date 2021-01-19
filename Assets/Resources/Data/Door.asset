@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf5d5e33bab057c43929a11bc8f25f44, type: 3}
+  m_Name: Door
+  m_EditorClassIdentifier: 
+  _beats:
+  - _choices:
+    - _text: New Beat Choice
+      _beatId: 2
+    _text: Electronic Door Selected...
+    _id: 1
+  - _choices:
+    - _text: New Beat Choice
+      _beatId: 3
+    _text: Accessing Doors Mechanical Routines...
+    _id: 2
+  - _choices:
+    - _text: New Beat Choice
+      _beatId: 4
+    _text: Success!
+    _id: 3
+  - _choices:
+    - _text: Lock Door
+      _beatId: 5
+    - _text: Unlock Door
+      _beatId: 6
+    _text: 'Choose Command:'
+    _id: 4
+  - _choices:
+    - _text: New Beat Choice
+      _beatId: 4
+    _text: Door LOCKED!
+    _id: 5
+  - _choices:
+    - _text: New Beat Choice
+      _beatId: 4
+    _text: Door UNLOCKED!
+    _id: 6

@@ -35,14 +35,10 @@ public class Transitioner : MonoBehaviour
         transitionTime = _transitionTime;
         transitionRefreshRate = _transitionRefreshRate;
         transitionImageOpaqueTime = _fullyMaskedTime;
-        Debug.Log("transitionTime: " + transitionTime);
-        Debug.Log("transitionRefreshRate: " + transitionRefreshRate);
-        Debug.Log("transitionImageOpaqueTime: " + transitionImageOpaqueTime);
 
         //calculate update speed with the opaque time taken into account so overall transition time is correct.
         alphaChangePerUpdate = transitionRefreshRate / (transitionTime - transitionImageOpaqueTime) ;
         alphaChangePerUpdate *= 2; //The changes have to occur fading too and from opaqueness.
-        Debug.Log("alphaChangePerUpdate: " + alphaChangePerUpdate);
 
         if (_realtime)
             StartCoroutine(TransitionScaledTime());

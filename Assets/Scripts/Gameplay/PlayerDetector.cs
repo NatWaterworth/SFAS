@@ -46,7 +46,10 @@ public class PlayerDetector
             if (Physics.Raycast(detectorPosition, (playerPosition - detectorPosition).normalized, out hit, viewRange))
             {
                 if (hit.collider.transform.root.GetComponent<Player>() != null)
+                {
                     Debug.DrawRay(detectorPosition, (playerPosition - detectorPosition).normalized * hit.distance, Color.green);
+                    return true;
+                }
                 else
                     Debug.DrawRay(detectorPosition, (playerPosition - detectorPosition).normalized * hit.distance, Color.red);
                 //report
@@ -58,7 +61,7 @@ public class PlayerDetector
         }
 
 
-        return true;
+        return false;
     }
 
     /// <summary>

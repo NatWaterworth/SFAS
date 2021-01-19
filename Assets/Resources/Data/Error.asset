@@ -14,25 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _beats:
   - _choices:
-    - _text: next beat...
+    - _text: An error occured.
       _beatId: 2
     _text: Oops...
     _id: 1
   - _choices:
     - _text: New Beat Choice
       _beatId: 3
-    _text: It appears an error has occured.
+    _text: An error occured.
     _id: 2
   - _choices:
-    - _text: Reboot.
+    - _text: New Beat Choice
       _beatId: 4
-    - _text: Shut down.
-      _beatId: 5
-    _text: What do you want to do?
+    _text: This device can't be hacked.
     _id: 3
   - _choices: []
-    _text: New Story Beat
+    _text: Maybe next time...
     _id: 4
-  - _choices: []
-    _text: New Story Beat
-    _id: 5

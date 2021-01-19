@@ -56,8 +56,18 @@ public class Game : MonoBehaviour
 
     public void SetDefaultConsoleCamera()
     {
+        Debug.Log("Setting Default Camera");
         if (_defaultConsoleCamera != null)
             _consoleCanvas.worldCamera = _defaultConsoleCamera;
+        else
+            Debug.LogError("No default camera set for: " + this.gameObject);
+    }
+
+    public void SetDefaultConsoleCameraActivity(bool _active)
+    {
+        Debug.Log("Setting Default Camera to:"+ _active);
+        if (_defaultConsoleCamera != null)
+            _defaultConsoleCamera.enabled = _active;
         else
             Debug.LogError("No default camera set for: " + this.gameObject);
     }
@@ -80,7 +90,7 @@ public class Game : MonoBehaviour
 
     private void UpdateInput()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(0))
         {
             if(_currentBeat != null)
             {

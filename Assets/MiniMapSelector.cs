@@ -41,17 +41,27 @@ public class MiniMapSelector : MonoBehaviour
 
         SetSecuirityDeviceState();
     }
+    /// <summary>
+    /// Set whether player mouse input is used to update MiniMapSelector.
+    /// </summary>
+    /// <param name="_takeInput">Set to True if you want MiniMapSelector to function.</param>
+    public void SetTakingInput(bool _takeInput)
+    {
+        takeInput = _takeInput;
+    }
+
+    /// <summary>
+    /// Return bool to signify if MiniMapSelector is being updated.
+    /// </summary>
+    public bool IsTakingInput()
+    {
+        return takeInput;
+    }
 
     void SetSecuirityDeviceState()
     {
-
-        if (selectedDevice.GetType().Equals(typeof(SecuirityCamera)))
-        {
-            if (console.GetCurrentBeatText().Contains("static"))
-                ((SecuirityCamera)selectedDevice).SetCameraState(SecuirityCamera.CameraState.Static);
-            else if (console.GetCurrentBeatText().Contains("sentry mode"))
-                ((SecuirityCamera)selectedDevice).SetCameraState(SecuirityCamera.CameraState.SentryMode);
-        }
+        if (selectedDevice != null)
+            selectedDevice.SetDeviceState(console.GetCurrentBeatText());
     }
 
     void RaycastToMap()
@@ -123,13 +133,32 @@ public class MiniMapSelector : MonoBehaviour
         if (_selectedObject.GetComponent<ElectronicDevice>() == null)
             return;
 
+        //Check if null, may not have previously been set.
+        if (selectedDevice != null)
+        {
+            //Deactivate previous camera, if there was one.
+            if (selectedDevice.HasDeviceCamera())
+                selectedDevice.SetCameraActive(false);
+            else
+                console.SetDefaultConsoleCameraActivity(false);
+        }
+
         selectedDevice = _selectedObject.GetComponent<ElectronicDevice>();
+        Debug.Log(selectedDevice + " camera: " + selectedDevice.HasDeviceCamera());
 
         //Set console camera
         if (selectedDevice.HasDeviceCamera())
+        {
             console.SetConsoleCamera(selectedDevice.GetDeviceCamera());
+            selectedDevice.SetCameraActive(true);
+        }
         else
+        {
             console.SetDefaultConsoleCamera();
+            console.SetDefaultConsoleCameraActivity(true);
+        }
+
+        Debug.Log(selectedDevice + " data: " + selectedDevice.HasDeviceData());
 
         //set console information
         if (selectedDevice.HasDeviceData())

@@ -12,7 +12,6 @@ public class SecuirityCamera : ElectronicDevice
 
     [SerializeField]
     CameraState currentState;
-    Camera cam;
 
     #region Sentry Mode Variables
     [Header("Sentry Mode Variables")]
@@ -20,8 +19,6 @@ public class SecuirityCamera : ElectronicDevice
     [SerializeField] Vector3 rightMostEulerRotation;
     [SerializeField][Range(0,1)] float rotationSpeed;
     float sentryTick;
-
-    const string resourcesDataPath = "Data/SecuirityCamera";
 
     #endregion
 
@@ -33,15 +30,14 @@ public class SecuirityCamera : ElectronicDevice
     // Start is called before the first frame update
     protected override void Start()
     {
-        base.Start();
+        resourcesDataPath = "Data/SecuirityCamera";
 
+        base.Start();
+        
         if (GetComponentInChildren<Camera>() != null)
         {
-            cam = GetComponentInChildren<Camera>();
+            deviceCamera = GetComponentInChildren<Camera>();
         }
-
-        //Get data specific to secuirity camera     
-        data = Resources.Load<StoryData>(resourcesDataPath);
 
         if (data == null)
         {
@@ -51,7 +47,7 @@ public class SecuirityCamera : ElectronicDevice
         detector = new PlayerDetector();
 
         //Set rotation centre
-        cam.transform.localEulerAngles = leftMostEulerRotation;
+        deviceCamera.transform.localEulerAngles = leftMostEulerRotation;
     }
 
     // Update is called once per frame
@@ -59,10 +55,20 @@ public class SecuirityCamera : ElectronicDevice
     {
         SetStateInformation();
 
-        detector.DetectPlayer(cam.transform, Vector3.zero, detectionRadius);
+        detector.DetectPlayer(deviceCamera.transform, Vector3.zero, detectionRadius);
 
     }
 
+    public override void SetDeviceState(string _stateInfo)
+    {
+        base.SetDeviceState(_stateInfo);
+
+        if (_stateInfo.Contains("static"))
+            SetCameraState(CameraState.Static);
+        else if (_stateInfo.Contains("sentry mode"))
+            SetCameraState(CameraState.SentryMode);
+
+    }
 
     void SetStateInformation()
     {
@@ -90,7 +96,7 @@ public class SecuirityCamera : ElectronicDevice
         float rotationLerp = Mathf.Sin(sentryTick * rotationSpeed);
         //make the curve range between 0 and 1
         rotationLerp = (rotationLerp + 1) / 2;
-        cam.transform.localEulerAngles = Vector3.Lerp(leftMostEulerRotation, rightMostEulerRotation, rotationLerp);
+        deviceCamera.transform.localEulerAngles = Vector3.Lerp(leftMostEulerRotation, rightMostEulerRotation, rotationLerp);
     }
 
     public void SetCameraState(CameraState _cameraState)

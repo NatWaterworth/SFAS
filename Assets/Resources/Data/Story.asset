@@ -14,50 +14,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _beats:
   - _choices:
-    - _text: Hack?
+    - _text: 
       _beatId: 2
-    _text: Camera
+    _text: Booting Up...
     _id: 1
   - _choices:
-    - _text: Continue?
-      _beatId: 5
-    _text: Accessing Camera's mechanical routines...
+    - _text: 
+      _beatId: 3
+    _text: Initiating Protocols...
     _id: 2
-  - _choices: []
-    _text: New Story Beat
+  - _choices:
+    - _text: 
+      _beatId: 4
+    _text: Encrytping Device...
     _id: 3
-  - _choices: []
-    _text: New Story Beat
+  - _choices:
+    - _text: 
+      _beatId: 5
+    _text: Searching for Malware...
     _id: 4
   - _choices:
-    - _text: Continue?
+    - _text: 
       _beatId: 6
-    _text: success!
+    _text: Malware found!
     _id: 5
   - _choices:
-    - _text: Sentry Mode
+    - _text: 
       _beatId: 7
-    - _text: Static
-      _beatId: 8
-    _text: 'Initiate command:'
+    _text: Welcome Hackerman...
     _id: 6
-  - _choices:
-    - _text: Returning to default state
-      _beatId: 9
-    _text: Execute Sentry Mode...
+  - _choices: []
+    _text: Let's Infilrate.
     _id: 7
-  - _choices:
-    - _text: Returning to default state
-      _beatId: 10
-    _text: Setting camera to static mode.
-    _id: 8
-  - _choices:
-    - _text: Return to default state
-      _beatId: 6
-    _text: Camera set to sentry mode.
-    _id: 9
-  - _choices:
-    - _text: Return to default state
-      _beatId: 6
-    _text: Camera set to static mode.
-    _id: 10

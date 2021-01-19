@@ -31,8 +31,6 @@ public class Door : ElectronicDevice
     float openPercentage;
     BoxCollider collider;
 
-    const string resourcesDataPath = "Data/Door";
-    StoryData data;
     #endregion
 
     #region Door UI Variables
@@ -44,6 +42,7 @@ public class Door : ElectronicDevice
     // Start is called before the first frame update
     protected override void Start()
     {
+        resourcesDataPath = "Data/Door";
         base.Start();
         collider = GetComponent<BoxCollider>();
     }
@@ -61,6 +60,17 @@ public class Door : ElectronicDevice
                 OpenDoor();
                 break;
         }
+
+    }
+
+    public override void SetDeviceState(string _stateInfo)
+    {
+        base.SetDeviceState(_stateInfo);
+        Debug.Log("State Info: " + _stateInfo);
+        if (_stateInfo.Contains("Door UNLOCKED"))
+            LockDoor(false);
+        else if (_stateInfo.Contains("Door LOCKED"))
+            LockDoor(true);
 
     }
 
