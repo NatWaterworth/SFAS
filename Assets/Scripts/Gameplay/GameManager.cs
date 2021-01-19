@@ -1,9 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
+    List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
+
+    void Awake()
+    {
+        instance = this;
+
+        SceneManager.LoadSceneAsync((int)SceneIndex.MainMenu, LoadSceneMode.Additive);
+    }
+
+    public enum SceneIndex
+    {
+        Manager = 0,
+        MainMenu = 1,
+        Level1 = 2,
+    }
+
     public enum GameState
     {
         Intro,
@@ -15,6 +35,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameState currentState;
     [SerializeField] bool acceptingInput;
+
+    #region Scene Management
+    [Header("Scene Management")]
+    [SerializeField] GameObject loadingScreen;
+    // [SerializeField] ProgressBar bar;
+    float totalSceneProgress;
+    #endregion
 
     #region Camera Work
     [Header("Cameras")]
@@ -66,7 +93,6 @@ public class GameManager : MonoBehaviour
 
         }
     }
-
 
     void SetHackerIntroAnimation()
     {
@@ -191,5 +217,35 @@ public class GameManager : MonoBehaviour
         Debug.Log("Setting player camera: " + _active);
         cinematicCamera.SetCameraActive(!_active);
         playerCamera.SetCameraActive(_active);
+    }
+
+    public void LoadGame()
+    {
+        loadingScreen.SetActive(true);
+        scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndex.MainMenu));
+        scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndex.Level1));
+    }
+
+    public IEnumerator GetSceneLoadingProgress()
+    {
+        for(int i = 0; i < scenesLoading.Count; i++)
+        {
+            while (!scenesLoading[i].isDone)
+            {
+                totalSceneProgress = 0;
+
+                foreach(AsyncOperation operation in scenesLoading)
+                {
+                    totalSceneProgress += operation.progress;
+                }
+
+                totalSceneProgress = (totalSceneProgress / scenesLoading.Count) * 100f;
+
+                yield return null;
+            }
+        }
+
+        //once loading is finished
+        loadingScreen.SetActive(false);
     }
 }

@@ -71,12 +71,11 @@ public class MiniMapSelector : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000))
         {
+
             Vector3 localHit = screen.transform.InverseTransformPoint(hit.point);
-            Vector2 screenPos = new Vector2(localHit.x, localHit.z);
             //based on plane so 5 is the half width.
             float width = Mathf.InverseLerp(5, -5, localHit.x);
             float height = Mathf.InverseLerp(5, -5, localHit.z);
-
             screenPosPercentage = new Vector2(width, height);
         }
 

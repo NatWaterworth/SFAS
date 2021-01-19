@@ -46,6 +46,11 @@ void Start()
 
         //Animate for keyboard input
         AnimateKeyPress(CheckNumericalKeyboardInput());
+        //Animate for mouse input
+        AnimateMouseClick(Input.GetMouseButtonDown(0)); // 0 - left click
+
+
+
     }
 
     /// <summary>
@@ -88,6 +93,18 @@ void Start()
     {
         if (GetComponent<Animator>() != null)
             GetComponent<Animator>().SetBool("Type", _typing);
+        else
+            Debug.LogWarning(this + ": Animator not set.");
+    }
+
+    /// <summary>
+    /// Make the Hacker appear to be clicking mouse
+    /// </summary>
+    /// <param name="_click">Whilst True hacker will animate clicking mouse.</param>
+    void AnimateMouseClick(bool _click)
+    {
+        if (GetComponent<Animator>() != null)
+            GetComponent<Animator>().SetBool("Click", _click);
         else
             Debug.LogWarning(this + ": Animator not set.");
     }
