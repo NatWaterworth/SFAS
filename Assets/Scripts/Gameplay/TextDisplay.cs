@@ -102,11 +102,11 @@ public class TextDisplay : MonoBehaviour
 
     public void Clear()
     {
-        if (_state == State.Idle)
-        {
-            StopAllCoroutines();
-            _state = State.Busy;
-            StartCoroutine(DoClearText());
-        }
+        //if (_state == State.Idle)
+        //{
+        StopAllCoroutines();
+        _state = State.Busy;
+        StartCoroutine(DoClearText());
+       // }
     }
 }

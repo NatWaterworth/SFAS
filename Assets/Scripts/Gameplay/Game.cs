@@ -13,6 +13,8 @@ public class Game : MonoBehaviour
     [SerializeField] Camera _defaultConsoleCamera;
     private BeatData _currentBeat;
     private WaitForSeconds _wait;
+
+    IEnumerator _coroutine;
     bool acceptInput;
     #endregion
     private void Awake()
@@ -102,47 +104,35 @@ public class Game : MonoBehaviour
         if (!acceptInput)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        KeyCode alpha = KeyCode.Alpha1;
+        KeyCode keypad = KeyCode.Keypad1;
+
+        for (int count = 0; count < _currentBeat.Decision.Count; ++count)
         {
-            if(_currentBeat != null)
+            if (alpha <= KeyCode.Alpha9 && keypad <= KeyCode.Keypad9)
             {
-                if (_currentBeat.ID == 1)
+                if (Input.GetKeyDown(alpha) || Input.GetKeyDown(keypad))
                 {
-                    Application.Quit();
-                }
-                else
-                {
-                    DisplayBeat(1);
+                    ChoiceData choice = _currentBeat.Decision[count];
+                    DisplayBeat(choice.NextID);
+                    break;
                 }
             }
-        }
-        else
-        {
-            KeyCode alpha = KeyCode.Alpha1;
-            KeyCode keypad = KeyCode.Keypad1;
 
-            for (int count = 0; count < _currentBeat.Decision.Count; ++count)
-            {
-                if (alpha <= KeyCode.Alpha9 && keypad <= KeyCode.Keypad9)
-                {
-                    if (Input.GetKeyDown(alpha) || Input.GetKeyDown(keypad))
-                    {
-                        ChoiceData choice = _currentBeat.Decision[count];
-                        DisplayBeat(choice.NextID);
-                        break;
-                    }
-                }
-
-                ++alpha;
-                ++keypad;
-            }
+            ++alpha;
+            ++keypad;
         }
     }
 
     private void DisplayBeat(int id)
     {
+        //Ensure previous data stops running.
+        if(_coroutine != null)
+            StopCoroutine(_coroutine);
+
         BeatData data = _data.GetBeatById(id);
-        StartCoroutine(DoDisplay(data));
+        _coroutine = DoDisplay(data);
+        StartCoroutine(_coroutine);
         _currentBeat = data;
     }
 
@@ -168,7 +158,6 @@ public class Game : MonoBehaviour
         {
             yield return null;
         }
-
         //display decisions if there is more than 1
         if (data.Decision.Count > 1)
         {
