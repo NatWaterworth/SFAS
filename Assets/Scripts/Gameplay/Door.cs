@@ -36,6 +36,7 @@ public class Door : ElectronicDevice
     #region Door UI Variables
     [Header("UI Variables")]
     [SerializeField] Image lockedSymbol;
+    [SerializeField] Color lockedColour, unlockedColour;
 
     #endregion
 
@@ -109,7 +110,19 @@ public class Door : ElectronicDevice
 
     public void LockDoor(bool _locked)
     {
-        locked = _locked;   
+        locked = _locked;
+
+        if (lockedSymbol != null)
+        {
+            if (locked)
+            {
+                lockedSymbol.color = lockedColour;
+            }
+            else
+            {
+                lockedSymbol.color = unlockedColour;
+            }
+        }
     }
 
     public void SetDoorState(DoorState _state)

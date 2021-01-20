@@ -13,9 +13,12 @@ public class Game : MonoBehaviour
     [SerializeField] Camera _defaultConsoleCamera;
     private BeatData _currentBeat;
     private WaitForSeconds _wait;
+    bool acceptInput;
     #endregion
     private void Awake()
     {
+        SetAcceptingInput(false);
+
         if (_output == null)
         {
             try
@@ -29,6 +32,11 @@ public class Game : MonoBehaviour
         }
         _currentBeat = null;
         _wait = new WaitForSeconds(0.75f);
+    }
+
+    public void SetAcceptingInput(bool _takeInput)
+    {
+        acceptInput = _takeInput;
     }
 
     private void Update()
@@ -77,6 +85,7 @@ public class Game : MonoBehaviour
         if (_information != null)
         {
             _data = _information;
+            DisplayBeat(1);
         }
     }
 
@@ -90,7 +99,10 @@ public class Game : MonoBehaviour
 
     private void UpdateInput()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(0))
+        if (!acceptInput)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if(_currentBeat != null)
             {

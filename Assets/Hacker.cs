@@ -103,6 +103,8 @@ void Start()
     /// <param name="_click">Whilst True hacker will animate clicking mouse.</param>
     void AnimateMouseClick(bool _click)
     {
+        return;
+
         if (GetComponent<Animator>() != null)
             GetComponent<Animator>().SetBool("Click", _click);
         else

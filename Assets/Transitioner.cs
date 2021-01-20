@@ -17,6 +17,8 @@ public class Transitioner : MonoBehaviour
     float alphaChangePerUpdate = 0.05f;
     float transitionImageOpaqueTime = 0.0f;
 
+    bool transitioning;
+
     /// <summary>
     /// Fades the screen to black and back to normal. Used for transitioning between states.
     /// </summary>
@@ -26,6 +28,9 @@ public class Transitioner : MonoBehaviour
     /// <param name="_realtime">Does the transition occur in realtime (is it affected by timescale).</param>
     public void MaskTransition(float _transitionTime, float _transitionRefreshRate, float _fullyMaskedTime, bool _realtime)
     {
+        if (transitioning)
+            return;
+
         //ensure a valid values are chosen for refresh rate and transitioning times.
         _transitionRefreshRate = Mathf.Max(_transitionRefreshRate, minRefreshRate);
         _transitionTime = Mathf.Max(_transitionTime, minTransitionTime);
@@ -50,6 +55,8 @@ public class Transitioner : MonoBehaviour
     {
         float alpha = 0;
 
+        transitioning = true;
+
         while (alpha < 1)
         {
             fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, alpha);
@@ -70,11 +77,17 @@ public class Transitioner : MonoBehaviour
 
         //ensure image is fully transparent.
         fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, 0);
+
+        transitioning = false;
+
+        yield return null;
     }
 
     IEnumerator TransitionScaledTime()
     {
         float alpha = 0;
+
+        transitioning = true;
 
         while (alpha < 1)
         {
@@ -96,5 +109,9 @@ public class Transitioner : MonoBehaviour
 
         //ensure image is fully transparent.
         fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, 0);
+
+        transitioning = false;
+
+        yield return null;
     }
 }

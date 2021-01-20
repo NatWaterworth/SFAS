@@ -18,7 +18,7 @@ public class SecuirityCamera : ElectronicDevice
     [SerializeField] Vector3 leftMostEulerRotation;
     [SerializeField] Vector3 rightMostEulerRotation;
     [SerializeField][Range(0,1)] float rotationSpeed;
-    float sentryTick;
+    [SerializeField] float sentryTick;
 
     #endregion
 

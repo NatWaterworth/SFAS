@@ -14,13 +14,13 @@ public class PlayerDetector
     /// </summary>
     /// <param name="player"></param>
     /// <param name="detector"></param>
-    public bool DetectPlayer(Transform detector,Vector3 offset, float viewRange)
+    public void DetectPlayer(Transform detector,Vector3 offset, float viewRange)
     {
         if (playerTransform == null)
         {       
             FindAndSetPlayerTransform();
             if (playerTransform == null)
-                return false;
+                return;
         }
 
         Vector3 detectorPosition = detector.position + offset;
@@ -33,7 +33,7 @@ public class PlayerDetector
         float angle = Vector3.Angle(detector.forward, direction);
 
         if (angle > (maxAngle/2))
-            return false;
+            return;
 
         //Do a fan of raycasts to help detect non cnetral bodyparts
         RaycastHit hit;
@@ -48,7 +48,7 @@ public class PlayerDetector
                 if (hit.collider.transform.root.GetComponent<Player>() != null)
                 {
                     Debug.DrawRay(detectorPosition, (playerPosition - detectorPosition).normalized * hit.distance, Color.green);
-                    return true;
+                    PlayerDetected();
                 }
                 else
                     Debug.DrawRay(detectorPosition, (playerPosition - detectorPosition).normalized * hit.distance, Color.red);
@@ -59,9 +59,14 @@ public class PlayerDetector
                 Debug.DrawRay(detector.position, (playerPosition - detector.position).normalized * viewRange, Color.white);
             }
         }
+    }
 
-
-        return false;
+    void PlayerDetected()
+    {
+        if (GameObject.FindObjectOfType<LevelManager>() != null)
+        {
+            GameObject.FindObjectOfType<LevelManager>().PlayerDetected();
+        }
     }
 
     /// <summary>

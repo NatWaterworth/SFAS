@@ -10,6 +10,7 @@ public class Player : Character
     float moveSpeed;
 
     Vector3 lookDir;
+    bool acceptInput;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -23,8 +24,16 @@ public class Player : Character
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!acceptInput)
+            return;
+
         Move();
         Animate();
+    }
+
+    public void SetAcceptingInput(bool _takeInput)
+    {
+        acceptInput = _takeInput;
     }
 
     void Move()
