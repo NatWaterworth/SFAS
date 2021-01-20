@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(BoxCollider))]
 public class Door : ElectronicDevice
 {
     public enum DoorState
@@ -29,7 +28,7 @@ public class Door : ElectronicDevice
     [SerializeField] bool locked;
 
     float openPercentage;
-    BoxCollider collider;
+    [SerializeField] BoxCollider detectionCollider;
 
     #endregion
 
@@ -45,7 +44,6 @@ public class Door : ElectronicDevice
     {
         resourcesDataPath = "Data/Door";
         base.Start();
-        collider = GetComponent<BoxCollider>();
     }
 
     private void Update()
@@ -132,9 +130,14 @@ public class Door : ElectronicDevice
 
     void CheckForCharacter()
     {
-        Collider[] overlappedColliders = Physics.OverlapBox(transform.position + collider.center, collider.size);
+        if (detectionCollider == null)
+        {
+            Debug.LogError(this + " has no detection collider set.");
+            return;
+        }
+
+        Collider[] overlappedColliders = Physics.OverlapBox(detectionCollider.transform.position + detectionCollider.center, detectionCollider.size);
         
-        //Debug.Log(overlappedColliders.Length);
         foreach (Collider col in overlappedColliders)
         {
             if (col.GetComponent<Character>() != null)
