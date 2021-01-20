@@ -1,15 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 [RequireComponent(typeof(Camera))]
 [RequireComponent(typeof(Game))]
 public class MiniMapSelector : MonoBehaviour
 {
     [SerializeField] bool takeInput;
+
+    [Header("Screen")]
     [SerializeField] Camera cam;
     [SerializeField] GameObject screen;
+
+    [Header("Mouse")]
     [SerializeField] GameObject mouse;
+    [SerializeField] Image activeMouseImage;
+    [SerializeField] Sprite  defaultMouseCursor, highlightingMouseCursor;
+    [SerializeField] Vector3 defaultCursorOffset, highlightedCursorOffset;
+    [SerializeField] Color defaultCursorColour, highlightedCursorColour;
     [SerializeField] Vector2 screenPosPercentage = Vector2.zero;
+
+    [Header("Hacked Device")]
     [SerializeField] ElectronicDevice selectedDevice;
     Vector2 mouseScreenPos;
 
@@ -58,6 +70,29 @@ public class MiniMapSelector : MonoBehaviour
         return takeInput;
     }
 
+    /// <summary>
+    /// Set Mouse cursor to highlight mode. Focusing on any detectected hackable object.
+    /// </summary>
+    /// <param name="_highlight"></param>
+    void MouseHighlight(bool _highlight)
+    {
+        if (_highlight)
+        { 
+            //set mouse Image to highlight
+            activeMouseImage.sprite = highlightingMouseCursor;
+            activeMouseImage.rectTransform.localPosition = highlightedCursorOffset;
+            activeMouseImage.color = highlightedCursorColour;
+        }
+        else
+        {
+            //set mouse Image to default
+            activeMouseImage.sprite = defaultMouseCursor;
+            activeMouseImage.rectTransform.localPosition = defaultCursorOffset;
+            activeMouseImage.color = defaultCursorColour;
+        }
+        
+    }
+
     void SetSecuirityDeviceState()
     {
         if (selectedDevice != null)
@@ -70,8 +105,7 @@ public class MiniMapSelector : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000))
-        {
-
+        {      
             Vector3 localHit = screen.transform.InverseTransformPoint(hit.point);
             //based on plane so 5 is the half width.
             float width = Mathf.InverseLerp(5, -5, localHit.x);
@@ -93,9 +127,12 @@ public class MiniMapSelector : MonoBehaviour
         //Selecting the point based on input position on current screen. Needs to be on texture.
         mouseScreenPos = new Vector2(screenPosPercentage.x * Screen.width, screenPosPercentage.y * Screen.height);
 
+        MouseHighlight(false);
+
         //Define Raycast information
         Ray ray = cam.ScreenPointToRay(mouseScreenPos);
         RaycastHit hit;
+
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
@@ -105,22 +142,25 @@ public class MiniMapSelector : MonoBehaviour
     }
     
     void SelectHackableDevice()
-    {
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            //Define Raycast information
-            Ray ray = cam.ScreenPointToRay(mouseScreenPos);
-            RaycastHit hit;
-            LayerMask mask = LayerMask.GetMask("Hackable");
+    {     
+        //Define Raycast information
+        Ray ray = cam.ScreenPointToRay(mouseScreenPos);
+        RaycastHit hit;
+        LayerMask mask = LayerMask.GetMask("Hackable");
             
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
+        {
+            MouseHighlight(true);
+
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
+
+            if (Input.GetMouseButtonDown(0))
             {
-                Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
                 Debug.Log("Get hackable object: " + hit.collider.gameObject.name);
                 SetSelectedDevice(hit.collider.gameObject);
             }
         }
+        
     }
 
     void SetSelectedDevice(GameObject _selectedObject)

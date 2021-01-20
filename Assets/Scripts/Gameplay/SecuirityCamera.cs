@@ -72,9 +72,9 @@ public class SecuirityCamera : ElectronicDevice
 
             bloomLayer.enabled.value = true;
             vignette.enabled.value = true;
-            vignette.color.value = Color.red;
+            vignette.color.value = new Color(1, 0.3f, 0.3f); //red
 
-            IncreasePostProcessIntensity(vignette);
+            StartCoroutine(IncreasePostProcessIntensity(vignette));
         }
     }
 
@@ -87,7 +87,7 @@ public class SecuirityCamera : ElectronicDevice
         float _intensity = _vignette.intensity.value;
         float _increment = 0.02f;
 
-        while(_intensity < 1)
+        while (_intensity < 1)
         {
             _intensity += _increment;
             _vignette.intensity.value = _intensity;
@@ -97,7 +97,6 @@ public class SecuirityCamera : ElectronicDevice
 
         yield return null;
     }
-
     // Update is called once per frame
     void Update()
     {
