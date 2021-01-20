@@ -16,32 +16,27 @@ MonoBehaviour:
   - _choices:
     - _text: New Beat Choice
       _beatId: 2
-    _text: Electronic Door Selected...
+    _text: Accessing Door Mechanical Protocols...
     _id: 1
   - _choices:
     - _text: New Beat Choice
       _beatId: 3
-    _text: Accessing Doors Mechanical Routines...
+    _text: Success!
     _id: 2
   - _choices:
-    - _text: New Beat Choice
+    - _text: Lock Door
       _beatId: 4
-    _text: Success!
+    - _text: Unlock Door
+      _beatId: 5
+    _text: 'Choose Command:'
     _id: 3
   - _choices:
-    - _text: Lock Door
-      _beatId: 5
-    - _text: Unlock Door
-      _beatId: 6
-    _text: 'Choose Command:'
+    - _text: New Beat Choice
+      _beatId: 3
+    _text: Door LOCKED!
     _id: 4
   - _choices:
     - _text: New Beat Choice
-      _beatId: 4
-    _text: Door LOCKED!
-    _id: 5
-  - _choices:
-    - _text: New Beat Choice
-      _beatId: 4
+      _beatId: 3
     _text: Door UNLOCKED!
-    _id: 6
+    _id: 5

@@ -11,7 +11,8 @@ public class Guard : Character
         Idle, //Remains still
         MirroredPatrol, //Navigates waypoints list from top to bottom, then bottom to top and repeats
         LoopingPatrol,  //Navigates waypoints list from top to bottom and repeats
-        RandomPatrol //Chooses from the set of waypoints to travel to at random
+        RandomPatrol, //Chooses from the set of waypoints to travel to at random
+        Pursuit //Detected Player and navigates to player location
 
     }
 
@@ -47,10 +48,12 @@ public class Guard : Character
     PlayerDetector detector; 
     Vector3 leftMostHeadRotation, rightmostHeadRotation; //Euler;
     [SerializeField] float headMovementRange = 130f;
+    [SerializeField] float viewAngle = 130f;
     [SerializeField][Min(.1f)] float lookAroundMinSpeed, lookAroundMaxSpeed;
     float lookAroundSpeed;
     float lookAroundTime;
     bool lookingAround;
+    bool foundPlayer;
     
     #endregion
 
@@ -59,9 +62,13 @@ public class Guard : Character
     {
         base.Start();
         agent = GetComponent<NavMeshAgent>();
+
         //set movement speeds
         patrolSpeed = agent.speed;
         alertSpeed = agent.speed * 2f;
+
+        //Set guard movement to patrol
+        SetMoveSpeed(patrolSpeed);
 
         if (waypointManager == null)        
             Debug.LogWarning("Waypoints have not been set for " + this.gameObject);                
@@ -85,7 +92,6 @@ public class Guard : Character
     {
         Animate();
         
-
         switch (currentState)
         {
             case GaurdState.Idle:
@@ -103,13 +109,34 @@ public class Guard : Character
 
         }
 
-        detector.DetectPlayer(transform, detectorOffset, detectionRadius);
+        //Look out for the player
+        Transform player = detector.DetectPlayer(transform, detectorOffset, detectionRadius, viewAngle, this.name);
 
+        //Found Player and in pursuit (END STATE)
+        if (player != null && !foundPlayer)
+        {
+            foundPlayer = true;
+            currentState = GaurdState.Pursuit;
+            SetMoveSpeed(alertSpeed);
+            GoToPosition(player.position);
+        }
     }
 
     private void LateUpdate()
     {
         LookAround();
+    }
+
+    /// <summary>
+    /// Set movement speed of the guard.
+    /// </summary>
+    /// <param name="_speed">New guard speed.</param>
+    void SetMoveSpeed(float _speed)
+    {
+        if(agent!=null)
+        {
+            agent.speed = _speed;
+        }
     }
 
     /// <summary>

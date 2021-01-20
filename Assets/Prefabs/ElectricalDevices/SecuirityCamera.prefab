@@ -305,7 +305,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 60
-  field of view: 80
+  field of view: 78
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -511,11 +511,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa802ddbcc3905e4ab5cac67133ad040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textDisplay: {fileID: 2990139558838153274}
+  data: {fileID: 0}
+  deviceCamera: {fileID: 0}
   currentState: 1
   leftMostEulerRotation: {x: 20, y: -70, z: 0}
   rightMostEulerRotation: {x: 20, y: 70, z: 0}
   rotationSpeed: 0.5
+  sentryTick: 0
   detectionRadius: 20
 --- !u!1 &4968599445802736941
 GameObject:
