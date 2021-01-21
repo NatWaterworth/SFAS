@@ -123,7 +123,7 @@ public class Hacker : MonoBehaviour
             SoundManager.instance.PlaySoundEffect("Click");
         }
 
-        return;
+        //return;
 
         if (GetComponent<Animator>() != null)
             GetComponent<Animator>().SetBool("Click", _click);

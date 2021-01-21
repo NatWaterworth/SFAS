@@ -7,6 +7,7 @@ public class PlayerCamera : CameraController
     [SerializeField] Transform playerHead;
     [SerializeField][Tooltip("The position which the camera will look at.")] Transform cameraFocalPoint;
     [SerializeField] bool overideHeadAnimation;
+    [SerializeField] Vector3 desiredHeadPos;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -46,6 +47,10 @@ public class PlayerCamera : CameraController
                 playerHead.LookAt(cameraFocalPoint.position);
             else
                 Debug.LogWarning(this + " cannot focus on point as it hasn't been set.");
+
+            //fixed head position
+            playerHead.transform.position = new Vector3(desiredHeadPos.x, desiredHeadPos.y, desiredHeadPos.z);
         }
+
     }
 }
