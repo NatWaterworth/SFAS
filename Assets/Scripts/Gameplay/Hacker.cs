@@ -10,11 +10,15 @@ public class Hacker : MonoBehaviour
 {
     [SerializeField] bool animate;
     [SerializeField] Transform bodyPart;
+
     [SerializeField] [Tooltip("World position.")]Transform ObjectCentralStartingPoint;
     Vector3 mouseCentrePoint;
     Vector3 bodyPartStartingPoint;
     [SerializeField] [Tooltip("Local position of mouse.")]Vector2 minMousePosition, maxMousePosition;
     [SerializeField] MiniMapSelector mouseController;
+
+    [SerializeField] Transform introTransform;
+    Transform playingTransform;
 
     private KeyCode[] keyCodes = {
          KeyCode.Alpha1,
@@ -28,8 +32,8 @@ public class Hacker : MonoBehaviour
          KeyCode.Alpha9,
      };
  
-// Start is called before the first frame update
-void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         SetUpHackerVisuals();
     }
@@ -72,7 +76,12 @@ void Start()
     void SetUpHackerVisuals()
     {
         mouseCentrePoint = ObjectCentralStartingPoint.position;
-        bodyPartStartingPoint = bodyPart.position;
+        bodyPartStartingPoint = bodyPart.position;       
+        playingTransform = transform;
+        if (introTransform != null)
+            transform.position = introTransform.position;
+        else
+            Debug.LogWarning(this + " hasn't set an intro animation Transform.");
     }
 
     /// <summary>
@@ -124,21 +133,33 @@ void Start()
     /// <summary>
     /// Make the Hacker appear to be engrossed in his computer action.
     /// </summary>
-    /// <param name="_typing">Whilst True hacker will animate laptop usage.</param>
-    public void AnimateHackerIntro(bool _typing)
+    /// <param name="_intro">Whilst True hacker will animate laptop usage.</param>
+    public void AnimateHackerIntro(bool _intro)
     {
         if (SoundManager.instance != null)
         {
-            if(_typing)
+            if(_intro)
                 SoundManager.instance.PlaySoundEffect("Typing");
             else
                 SoundManager.instance.StopSoundEffect("Typing");
         }
 
         if (GetComponent<Animator>() != null)
-            GetComponent<Animator>().SetBool("Intro", _typing);
+            GetComponent<Animator>().SetBool("Intro", _intro);
         else
             Debug.LogWarning(this + ": Animator not set.");
+
+        if (introTransform != null)
+        {
+            if (_intro)
+            {
+                transform.position = playingTransform.position;
+            }
+            else
+            {
+                transform.position = introTransform.position;
+            }
+        }
     }
 
 

@@ -18,6 +18,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] bool acceptingInput;
     [SerializeField] StoryData levelData;
 
+    float totalLevelTime;
+    [SerializeField] TextMeshProUGUI timeText;
+
     #region Camera Work
     [Header("Cameras")]
     [SerializeField] CinematicCamera cinematicCamera;
@@ -50,18 +53,12 @@ public class LevelManager : MonoBehaviour
         CheckCameras();
         SwitchCurrentState(GameState.Intro);
         SetUpLevel();
-        SetCursorVisible(false);
 
         if (SoundManager.instance != null)
         {
             SoundManager.instance.PlayMusic("Sneak Music");
         }
 
-    }
-
-    void SetCursorVisible(bool _visible)
-    {
-        Cursor.visible = _visible;
     }
 
     // Update is called once per frame
@@ -72,6 +69,8 @@ public class LevelManager : MonoBehaviour
 
     void SetUpLevel()
     {
+        SetStartingLevelTime();
+
         endStateScreen.SetActive(false);
         detected = false;
 
@@ -84,6 +83,30 @@ public class LevelManager : MonoBehaviour
         if (miniMap == null)
             Debug.LogError(this + " has no miniMap set!");
 
+    }
+
+    /// <summary>
+    /// Gets the total level time so far and sets it as the starting time.
+    /// </summary>
+    void SetStartingLevelTime()
+    {
+        totalLevelTime = 0;
+
+        if (GameManager.instance != null)
+        {
+            totalLevelTime = GameManager.instance.GetTotalLevelTime();
+            if(timeText!=null)
+                timeText.text = "Time: " + totalLevelTime.ToString();
+        }
+    }
+
+    void IncrementLevelTime()
+    {
+        if (timeText != null)
+        {
+            timeText.text = "Time: " + (((float)Mathf.Round(totalLevelTime*100))/100).ToString();
+            totalLevelTime += Time.deltaTime;
+        }
     }
      
 
@@ -154,7 +177,15 @@ public class LevelManager : MonoBehaviour
         endStateScreen.SetActive(true);
         transitioner.MaskTransition(transitionTime, 0.05f, opaqueTime, false);
         yield return new WaitForSeconds(transitionTime/2);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.ReloadLevel();
+        }
+        else
+        {
+            Debug.LogError("Couldn't find Game Manager to set next scene.");
+        }
     }
 
     IEnumerator LevelComplete()
@@ -174,12 +205,12 @@ public class LevelManager : MonoBehaviour
 
         if (GameManager.instance != null)
         {
+            GameManager.instance.SetTotalLevelTime(totalLevelTime);
             GameManager.instance.NextLevel();
         }
         else
         {
-            Debug.LogError("Couldn't find Game Manager. Reloading this scene.");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Debug.LogError("Couldn't find Game Manager to set next scene.");
         }
             
     }
@@ -215,6 +246,7 @@ public class LevelManager : MonoBehaviour
             case GameState.Intro:
                 break;
             case GameState.Playing:
+                IncrementLevelTime();
                 CheckLevelComplete();
                 break;
             case GameState.Paused:

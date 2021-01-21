@@ -15,10 +15,17 @@ public class GameManager : MonoBehaviour
 
     AsyncOperation loadScene;
 
+
+    [Header("Loading Screen")]
     [SerializeField] Slider loadingBar;
     [SerializeField] TextMeshProUGUI loadingMessage;
+    [SerializeField] TextMeshProUGUI loadingTitle;
     [SerializeField] Button continueButton;
+    [SerializeField] TextMeshProUGUI buttonText;
+    [SerializeField] Color disabledButtonColour, enabledButtonColour;
 
+    float currentTotalPlayTime = 0;
+    float bestTotalPlayTime;
     //used to check if the player wishes to continue.
     bool playerContinue;
 
@@ -58,6 +65,11 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadSceneAsync((int)SceneIndex.MainMenu, LoadSceneMode.Additive);
         currentScene = SceneIndex.MainMenu;
+
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.PlayMusic("Menu Music");
+        }
     }
 
     public void PlayerInvokeContinue(bool _continue)
@@ -88,6 +100,7 @@ public class GameManager : MonoBehaviour
         if (loadingScreen != null)
         {
             loadingScreen.SetActive(true);
+            SetLoadingTitle(currentScene.ToString());
             scenesLoading.Clear();
             scenesLoading.Add(SceneManager.UnloadSceneAsync((int)previousScene));
 
@@ -109,10 +122,33 @@ public class GameManager : MonoBehaviour
         SceneIndex theEnum = currentScene;
         int toInt = (int)theEnum + 1;
         SceneIndex nextScene = (SceneIndex)toInt;
-        Debug.Log("Current Scene: " + currentScene);
-        Debug.Log("Next Scene: " + nextScene);
+
+        if (nextScene.Equals(SceneIndex.EndGame))
+        {
+            bestTotalPlayTime = currentTotalPlayTime;
+        }
 
         LoadScene(nextScene);
+    }
+
+    public void ReloadLevel()
+    {
+        LoadScene(currentScene);
+    }
+
+    void SetCursorVisible(bool _visible)
+    {
+        Cursor.visible = _visible;
+    }
+
+    void SetLoadingTitle(string levelName)
+    {
+        if (loadingTitle != null)
+        {
+            loadingTitle.text = "Hackerman - " + levelName + ".exe";
+        }
+        else
+            Debug.LogError(this + " has no loading title GUI set for loading screen");
     }
 
     /// <summary>
@@ -134,10 +170,37 @@ public class GameManager : MonoBehaviour
         }
         else
             Debug.LogError(this + " has no loading message GUI set for loading screen");
+
+        if (continueButton != null)
+        {
+            if (_percentage != 100)
+            {
+                continueButton.image.color = disabledButtonColour;
+                continueButton.enabled = false;
+            }
+            else
+            {
+                continueButton.image.color = enabledButtonColour;
+                continueButton.enabled = true;
+            }
+        }
+        else
+            Debug.LogError(this + " has no button GUI set for loading screen");
+
+        if (buttonText != null)
+        {
+            if (_percentage != 100)
+                buttonText.color = disabledButtonColour;
+            else
+                buttonText.color = enabledButtonColour;
+        }
+        else
+            Debug.LogError(this + " has no button text GUI set for loading screen");
     }
 
     public IEnumerator GetSceneLoadingProgress()
     {
+        SetCursorVisible(true);
         //Reset Loading bar.
         UpdateLoadingScreen(0, "Loading...");
         yield return new WaitForSeconds(loadingDelay);
@@ -165,6 +228,12 @@ public class GameManager : MonoBehaviour
         totalSceneProgress = 100; //complete.
         UpdateLoadingScreen(totalSceneProgress, "Complete.");
 
+
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.PlaySoundEffect("Select");
+        }
+
         //Press button to continue (otherwise loading screen moves too quick).
         if (continueButton != null)
         {
@@ -181,6 +250,13 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.StopMusic("Menu Music");
+        }
+
+        SetCursorVisible(false);
+
         //Activate Scene now player is ready.
         if (loadScene != null)
             loadScene.allowSceneActivation = true;
@@ -189,6 +265,22 @@ public class GameManager : MonoBehaviour
 
         //Turn off loading screen
         loadingScreen.SetActive(false);
+    }
+
+
+    public float GetTotalLevelTime()
+    {
+        return currentTotalPlayTime;
+    }
+
+    public float GetBestTotalTime()
+    {
+        return bestTotalPlayTime;
+    }
+
+    public void SetTotalLevelTime(float _totalLevelTime)
+    {
+        currentTotalPlayTime = _totalLevelTime;
     }
 
     /// <summary>

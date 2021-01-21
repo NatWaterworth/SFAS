@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 642509304}
   - component: {fileID: 642509303}
   m_Layer: 2
-  m_Name: ScreenText (1)
+  m_Name: LoadingTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -809,6 +809,7 @@ GameObject:
   - component: {fileID: 932035159}
   - component: {fileID: 932035158}
   - component: {fileID: 932035157}
+  - component: {fileID: 932035160}
   m_Layer: 5
   m_Name: ContinueButton
   m_TagString: Untagged
@@ -831,10 +832,10 @@ RectTransform:
   m_Father: {fileID: 1165480246}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1203, y: 339}
-  m_SizeDelta: {x: 391.5, y: 90.8}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 246, y: -205.25}
+  m_SizeDelta: {x: 391.5, y: 90.79999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &932035157
 MonoBehaviour:
@@ -867,7 +868,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 21300000, guid: 09bf73c018189284aa156442f061c0b6, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 2876768e5194e454881499206ca89167, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 09bf73c018189284aa156442f061c0b6, type: 3}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: 77cb9aa00800a6e4ea4275656bc0b6ea, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -879,6 +880,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 961175555}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: StopSoundEffect
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Click
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 1849319527}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: PlayerInvokeContinue
@@ -929,6 +942,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 932035155}
   m_CullTransparentMesh: 0
+--- !u!114 &932035160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932035155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 961175555}
+          m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+          m_MethodName: PlaySoundEffect
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Hover
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &961175554
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,11 +1043,23 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 0
+  - name: Hover
+    clip: {fileID: 8300000, guid: 61786ac5db148804b973925013f54638, type: 3}
+    volume: 0.3
+    pitch: 1.74
+    source: {fileID: 0}
+    loop: 0
   music:
   - name: Sneak Music
     clip: {fileID: 8300000, guid: 19e35ed4733da154494a18403d9b20c2, type: 3}
     volume: 0.5
     pitch: 0.94
+    source: {fileID: 0}
+    loop: 1
+  - name: Menu Music
+    clip: {fileID: 8300000, guid: bf52ad3bb38586142b3bb5a47fa5e016, type: 3}
+    volume: 0.27
+    pitch: 0.45
     source: {fileID: 0}
     loop: 1
 --- !u!4 &961175556
@@ -1280,7 +1334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1165480244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1635,6 +1689,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1419618455}
   - component: {fileID: 1419618453}
+  - component: {fileID: 1419618454}
   m_Layer: 0
   m_Name: DefaultConsoleCamera
   m_TagString: Untagged
@@ -1685,6 +1740,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!81 &1419618454
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419618452}
+  m_Enabled: 1
 --- !u!4 &1419618455
 Transform:
   m_ObjectHideFlags: 0
@@ -2007,7 +2070,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2156,7 +2219,11 @@ MonoBehaviour:
   loadingDelay: 1
   loadingBar: {fileID: 312545688}
   loadingMessage: {fileID: 1430495553}
+  loadingTitle: {fileID: 642509303}
   continueButton: {fileID: 932035157}
+  buttonText: {fileID: 0}
+  disabledButtonColour: {r: 0.18039216, g: 0.47058824, b: 0.039215688, a: 0.5372549}
+  enabledButtonColour: {r: 0.32727265, g: 1, b: 0, a: 1}
   loadingScreen: {fileID: 1165480243}
   previousScene: 0
   currentScene: 0
