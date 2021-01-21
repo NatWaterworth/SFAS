@@ -10,6 +10,7 @@ public class Hacker : MonoBehaviour
 {
     [SerializeField] bool animate;
     [SerializeField] Transform bodyPart;
+    [SerializeField] Transform rightHandHoldPoint, mouseStationaryPoint;
 
     [SerializeField] [Tooltip("World position.")]Transform ObjectCentralStartingPoint;
     Vector3 mouseCentrePoint;
@@ -160,6 +161,13 @@ public class Hacker : MonoBehaviour
                 transform.position = introTransform.position;
             }
         }
+
+        if (mouseStationaryPoint != null)
+        {
+            ObjectCentralStartingPoint.parent = mouseStationaryPoint;
+            ObjectCentralStartingPoint.localPosition = Vector3.zero;
+            ObjectCentralStartingPoint.localEulerAngles = Vector3.zero;
+        }
     }
 
 
@@ -180,7 +188,13 @@ public class Hacker : MonoBehaviour
             float z = Mathf.Lerp(minMousePosition.y, maxMousePosition.y, percentagePos.y);
 
             bodyPart.position = bodyPartStartingPoint + new Vector3(x, 0, z);
-            ObjectCentralStartingPoint.position = mouseCentrePoint + new Vector3(x, 0, z);
+
+            if (rightHandHoldPoint != null)
+            {
+                ObjectCentralStartingPoint.parent = rightHandHoldPoint;
+                ObjectCentralStartingPoint.localPosition = Vector3.zero;
+                ObjectCentralStartingPoint.localEulerAngles = Vector3.zero;
+            }
         }
     }
 }

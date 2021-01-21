@@ -1282,6 +1282,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &448675579 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8504309617613441659, guid: cc4eb257a60ec1946ac4bcce29210d8a, type: 3}
+  m_PrefabInstance: {fileID: 1994116892}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &495835960
 GameObject:
   m_ObjectHideFlags: 0
@@ -2046,6 +2051,78 @@ Transform:
   m_Father: {fileID: 248491180}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &887596192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 887596193}
+  - component: {fileID: 887596195}
+  - component: {fileID: 887596194}
+  m_Layer: 8
+  m_Name: MouseHandHoldPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &887596193
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887596192}
+  m_LocalRotation: {x: -0.66998696, y: 0.12929273, z: 0.094466135, w: 0.7248979}
+  m_LocalPosition: {x: -0.010699859, y: 0.14600483, z: 0.06240058}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 448675579}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: -84.729, y: 41.498, z: -23.271}
+--- !u!114 &887596194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887596192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baada67adc9510d4bb581676a1e918bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animate: 0
+  bodyPart: {fileID: 0}
+  rightHandHoldPoint: {fileID: 0}
+  mouseStationaryPoint: {fileID: 0}
+  ObjectCentralStartingPoint: {fileID: 38091511}
+  minMousePosition: {x: -0.5, y: -0.5}
+  maxMousePosition: {x: 0.5, y: 0.5}
+  mouseController: {fileID: 7893436622283922519}
+  introTransform: {fileID: 0}
+--- !u!95 &887596195
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887596192}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 972fc84ea04661645ad9893b565bd7fb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &947410133 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100002, guid: 967c48686420c0d458ac386aa7c400ae, type: 3}
@@ -2353,6 +2430,78 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6148961336415206396, guid: c60ed36450149b34982cc8be3431f104, type: 3}
   m_PrefabInstance: {fileID: 796336367}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1151733666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1151733667}
+  - component: {fileID: 1151733669}
+  - component: {fileID: 1151733668}
+  m_Layer: 8
+  m_Name: MouseHoldPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1151733667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151733666}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.875, y: -8.885, z: 1.354}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1765847154}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1151733668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151733666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baada67adc9510d4bb581676a1e918bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animate: 0
+  bodyPart: {fileID: 0}
+  rightHandHoldPoint: {fileID: 0}
+  mouseStationaryPoint: {fileID: 0}
+  ObjectCentralStartingPoint: {fileID: 38091511}
+  minMousePosition: {x: -0.5, y: -0.5}
+  maxMousePosition: {x: 0.5, y: 0.5}
+  mouseController: {fileID: 7893436622283922519}
+  introTransform: {fileID: 0}
+--- !u!95 &1151733669
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151733666}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 972fc84ea04661645ad9893b565bd7fb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1212823637
 GameObject:
   m_ObjectHideFlags: 0
@@ -3683,6 +3832,7 @@ Transform:
   - {fileID: 1870411934}
   - {fileID: 1996293066}
   - {fileID: 4661707446102737652}
+  - {fileID: 1151733667}
   m_Father: {fileID: 1849319528}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4074,6 +4224,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animate: 0
   bodyPart: {fileID: 1763184416}
+  rightHandHoldPoint: {fileID: 887596193}
+  mouseStationaryPoint: {fileID: 1151733667}
   ObjectCentralStartingPoint: {fileID: 38091511}
   minMousePosition: {x: -0.5, y: -0.5}
   maxMousePosition: {x: 0.5, y: 0.5}
@@ -5221,6 +5373,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animate: 0
   bodyPart: {fileID: 0}
+  rightHandHoldPoint: {fileID: 0}
+  mouseStationaryPoint: {fileID: 0}
   ObjectCentralStartingPoint: {fileID: 38091511}
   minMousePosition: {x: -0.5, y: -0.5}
   maxMousePosition: {x: 0.5, y: 0.5}
