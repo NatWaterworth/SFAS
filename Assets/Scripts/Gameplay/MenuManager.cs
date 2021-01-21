@@ -21,7 +21,7 @@ public class MenuManager : MonoBehaviour
     {
         if (GameManager.instance != null)
         {
-            GameManager.instance.LoadGame();
+            GameManager.instance.LoadScene(GameManager.SceneIndex.Level1);
         }
         else
             Debug.LogError(this + " cannot find instance of Game Manager");

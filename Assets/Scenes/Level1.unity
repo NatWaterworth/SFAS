@@ -514,6 +514,99 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 683ef653b4b09b94993b7fd393c95978, type: 3}
+--- !u!1 &108707849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 108707851}
+  - component: {fileID: 108707850}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &108707850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108707849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5558a067c98bcc469caf46a6518f2a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Complete
+    clip: {fileID: 8300000, guid: e7789ba7b7ec4964693c5f695adb1ea1, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Alert
+    clip: {fileID: 8300000, guid: 791ad845eebb51849b8ea8136fffc528, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Alert2
+    clip: {fileID: 8300000, guid: 3f7c0276a480d3746b71a5bdf8a69dab, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Typing
+    clip: {fileID: 8300000, guid: 816c8faf96c30464d8be3945515b672f, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Click
+    clip: {fileID: 8300000, guid: 640df4befeef6b24cae1cea164991cd0, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Type
+    clip: {fileID: 8300000, guid: 8edcbf0087e0f7943bf4e4b54977a4aa, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Select
+    clip: {fileID: 8300000, guid: 61786ac5db148804b973925013f54638, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  music:
+  - name: Sneak Music
+    clip: {fileID: 8300000, guid: 19e35ed4733da154494a18403d9b20c2, type: 3}
+    volume: 0.5
+    pitch: 0.94
+    source: {fileID: 0}
+    loop: 1
+--- !u!4 &108707851
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108707849}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &118713581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -673,8 +766,9 @@ RectTransform:
   - {fileID: 1255236554}
   - {fileID: 1230488187}
   - {fileID: 1212823638}
+  - {fileID: 361687453}
   m_Father: {fileID: 7893436621950620443}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -850,18 +944,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361687452}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00056963274}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 7893436621950620443}
-  m_RootOrder: 1
+  m_Father: {fileID: 185424864}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 559, y: -249}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.00010675192, y: 0}
   m_SizeDelta: {x: 800, y: 500}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &361687454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1210,8 +1304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints:
   - offsetFromParentPosition: {x: 0.29095268, y: 0, z: 16.464718}
-  - offsetFromParentPosition: {x: 0.29095268, y: 0, z: -0.19512177}
-  - offsetFromParentPosition: {x: -0.28321838, y: 0, z: -9.22361}
+  - offsetFromParentPosition: {x: 0.49512482, y: 0, z: -9.22361}
 --- !u!1 &528248798
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,7 +1806,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791740165}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.9417305, y: 2.5869792, z: -55.31794}
+  m_LocalPosition: {x: -9.5582695, y: 2.5869792, z: -75.56794}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 12078195}
@@ -5323,6 +5416,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6677554449896506960, guid: 5300149aa791c2c469caedd6fd2f85a2, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677554449896506962, guid: 5300149aa791c2c469caedd6fd2f85a2, type: 3}
+      propertyPath: m_Height
+      value: 85
+      objectReference: {fileID: 0}
     - target: {fileID: 6677554450119809961, guid: 5300149aa791c2c469caedd6fd2f85a2, type: 3}
       propertyPath: m_Name
       value: Player
@@ -5538,7 +5639,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 7893436620872824523}
-  - {fileID: 361687453}
   - {fileID: 185424864}
   m_Father: {fileID: 0}
   m_RootOrder: 12

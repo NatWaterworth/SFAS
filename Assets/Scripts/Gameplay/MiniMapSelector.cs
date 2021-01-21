@@ -156,6 +156,12 @@ public class MiniMapSelector : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
+
+                if (SoundManager.instance != null)
+                {
+                    SoundManager.instance.PlaySoundEffect("Select");
+                }
+
                 Debug.Log("Get hackable object: " + hit.collider.gameObject.name);
                 SetSelectedDevice(hit.collider.gameObject);
             }

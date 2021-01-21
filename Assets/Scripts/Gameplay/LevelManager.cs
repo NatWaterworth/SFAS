@@ -50,7 +50,18 @@ public class LevelManager : MonoBehaviour
         CheckCameras();
         SwitchCurrentState(GameState.Intro);
         SetUpLevel();
+        SetCursorVisible(false);
 
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.PlayMusic("Sneak Music");
+        }
+
+    }
+
+    void SetCursorVisible(bool _visible)
+    {
+        Cursor.visible = _visible;
     }
 
     // Update is called once per frame
@@ -105,6 +116,11 @@ public class LevelManager : MonoBehaviour
         {
             detected = true;
             StartCoroutine(LevelFailed());
+
+            if (SoundManager.instance != null)
+            {
+                SoundManager.instance.PlaySoundEffect("Alert");
+            }
         }
         
     }
@@ -114,6 +130,12 @@ public class LevelManager : MonoBehaviour
         if (EndLevelArea.IsLevelComplete() && !complete)
         {
             complete = true;
+
+            if (SoundManager.instance != null)
+            {
+                SoundManager.instance.PlaySoundEffect("Complete");
+            }
+
             StartCoroutine(LevelComplete());
         }
     }
@@ -149,7 +171,17 @@ public class LevelManager : MonoBehaviour
         endStateScreen.SetActive(true);
         transitioner.MaskTransition(transitionTime, 0.05f, opaqueTime, false);
         yield return new WaitForSeconds(transitionTime / 2);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.NextLevel();
+        }
+        else
+        {
+            Debug.LogError("Couldn't find Game Manager. Reloading this scene.");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+            
     }
 
     void SetHackerIntroAnimation()

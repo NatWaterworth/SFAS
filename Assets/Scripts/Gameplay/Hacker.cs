@@ -91,6 +91,11 @@ void Start()
     /// <param name="_typing">Whilst True hacker will animate typing.</param>
     void AnimateKeyPress(bool _typing)
     {
+        if (SoundManager.instance != null && _typing)
+        {
+            SoundManager.instance.PlaySoundEffect("Type");
+        }
+
         if (GetComponent<Animator>() != null)
             GetComponent<Animator>().SetBool("Type", _typing);
         else
@@ -103,6 +108,11 @@ void Start()
     /// <param name="_click">Whilst True hacker will animate clicking mouse.</param>
     void AnimateMouseClick(bool _click)
     {
+        if (SoundManager.instance != null && _click)
+        {
+            SoundManager.instance.PlaySoundEffect("Click");
+        }
+
         return;
 
         if (GetComponent<Animator>() != null)
@@ -117,6 +127,14 @@ void Start()
     /// <param name="_typing">Whilst True hacker will animate laptop usage.</param>
     public void AnimateHackerIntro(bool _typing)
     {
+        if (SoundManager.instance != null)
+        {
+            if(_typing)
+                SoundManager.instance.PlaySoundEffect("Typing");
+            else
+                SoundManager.instance.StopSoundEffect("Typing");
+        }
+
         if (GetComponent<Animator>() != null)
             GetComponent<Animator>().SetBool("Intro", _typing);
         else
