@@ -746,7 +746,7 @@ GameObject:
   - component: {fileID: 185424866}
   - component: {fileID: 185424865}
   m_Layer: 2
-  m_Name: ScreenBackground (1)
+  m_Name: ConsoleWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

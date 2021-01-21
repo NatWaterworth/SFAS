@@ -3,20 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [SerializeField][Tooltip("Added delay to loading time (so player can see bar load up if it's too quick)")] float loadingDelay =1f;
+
     List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
     AsyncOperation loadScene;
+
+    [SerializeField] Slider loadingBar;
+    [SerializeField] TextMeshProUGUI loadingMessage;
+    [SerializeField] Button continueButton;
+
+    //used to check if the player wishes to continue.
+    bool playerContinue;
 
     void Awake()
     {
         instance = this;
 
         SetStartingScene();
+
+        if (continueButton == null)
+            Debug.LogError(this + " has not loading screen button assigned to continue.");
     }
 
     public enum SceneIndex
@@ -47,6 +60,26 @@ public class GameManager : MonoBehaviour
         currentScene = SceneIndex.MainMenu;
     }
 
+    public void PlayerInvokeContinue(bool _continue)
+    {
+        playerContinue = _continue;
+    }
+
+    /// <summary>
+    /// Determines whether player has confirmed to continue at a point which requires player response.
+    /// </summary>
+    /// <returns> players response to continue as True or False.</returns>
+    bool PlayerContinue()
+    {
+        if (playerContinue)
+        {
+            //Reset continue to false for next required response.
+            PlayerInvokeContinue(false);
+            return true;
+        }
+        return false;
+    }
+
     public void LoadScene(SceneIndex scene)
     {
         previousScene = currentScene;
@@ -61,6 +94,7 @@ public class GameManager : MonoBehaviour
             loadScene = SceneManager.LoadSceneAsync((int)currentScene, LoadSceneMode.Additive);
             scenesLoading.Add(loadScene);
             loadScene.allowSceneActivation = false;
+
             StartCoroutine(GetSceneLoadingProgress());
         }
         else
@@ -81,9 +115,34 @@ public class GameManager : MonoBehaviour
         LoadScene(nextScene);
     }
 
+    /// <summary>
+    /// Update the loading screen load percentage and displayed message.
+    /// </summary>
+    /// <param name="_percentage">Ammount the level has loaded as a percentage (0-100%)</param>
+    void UpdateLoadingScreen(float _percentage, string _message)
+    {
+        if (loadingBar != null)
+        {
+            _percentage = Mathf.Clamp(_percentage, 0, 100);
+            loadingBar.value = _percentage;
+        }
+        else
+            Debug.LogError(this+" has no loading bar GUI set for loading screen");
+        if (loadingMessage != null)
+        {
+            loadingMessage.text = _message;
+        }
+        else
+            Debug.LogError(this + " has no loading message GUI set for loading screen");
+    }
+
     public IEnumerator GetSceneLoadingProgress()
     {
-        for(int i = 0; i < scenesLoading.Count; i++)
+        //Reset Loading bar.
+        UpdateLoadingScreen(0, "Loading...");
+        yield return new WaitForSeconds(loadingDelay);
+
+        for (int i = 0; i < scenesLoading.Count; i++)
         {
             while (!scenesLoading[i].isDone && !IsNextSceneReady(scenesLoading[i]))
             {
@@ -93,19 +152,33 @@ public class GameManager : MonoBehaviour
                 {
                     totalSceneProgress += operation.progress;
                 }
+                Debug.Log(scenesLoading[i]+ " progress" + totalSceneProgress);
 
-                totalSceneProgress = (totalSceneProgress / scenesLoading.Count) * 100f;            
+                totalSceneProgress = (totalSceneProgress / scenesLoading.Count) * 100f;
+
+                UpdateLoadingScreen(totalSceneProgress, "Loading...");
 
                 yield return null;
             }        
         }
+      
+        totalSceneProgress = 100; //complete.
+        UpdateLoadingScreen(totalSceneProgress, "Complete.");
 
-        totalSceneProgress = 1; //complete.
-
-        //Press any key to continue (otherwise loading screen moves too quick).
-        while (!Input.anyKeyDown)
+        //Press button to continue (otherwise loading screen moves too quick).
+        if (continueButton != null)
         {
-            yield return null;
+            while (!PlayerContinue())
+            {
+                yield return null;
+            }
+        }
+        else //Press any key to continue (otherwise loading screen moves too quick).
+        {
+            while (!Input.anyKeyDown)
+            {
+                yield return null;
+            }
         }
 
         //Activate Scene now player is ready.
@@ -125,7 +198,9 @@ public class GameManager : MonoBehaviour
     /// <returns> True if scene is ready for activation.</returns>
     bool IsNextSceneReady(AsyncOperation operation)
     {
-        /*When allowSceneActivation is set to false then progress is stopped at 0.9.
+        /* Unity Docs
+         *
+         * When allowSceneActivation is set to false then progress is stopped at 0.9.
          * The isDone is then maintained at false. When allowSceneActivation is set
          * to true isDone can complete. While isDone is false, the AsyncOperation 
          * queue is stalled. For example, if a LoadSceneAsync.allowSceneActivation
@@ -135,8 +210,10 @@ public class GameManager : MonoBehaviour
 
         if (operation.Equals(loadScene))
         {
-            if (loadScene.progress >= 0.9)
+            Debug.Log("Loading Progress:" + loadScene.progress);
+            if (loadScene.progress >= 0.9f)
             {
+                Debug.Log("Done Loading:" + loadScene);
                 return true;
             }
         }
