@@ -69,7 +69,7 @@ public class Door : ElectronicDevice
     public override void UpdateDeviceState(string _stateInfo)
     {
         base.UpdateDeviceState(_stateInfo);
-        Debug.Log("State Info: " + _stateInfo);
+
         if (_stateInfo.Contains("Door UNLOCKED"))
             LockDoor(false);
         else if (_stateInfo.Contains("Door LOCKED"))

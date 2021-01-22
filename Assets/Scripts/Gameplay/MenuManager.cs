@@ -40,7 +40,7 @@ public class MenuManager : MonoBehaviour
             return;
         }
         if(GameManager.instance.GetBestTotalTime()!= 0)
-            bestScoreText.text = "Fastest Escape Time: " + GameManager.instance.GetBestTotalTime().ToString();
+            bestScoreText.text = "Fastest Escape Time: " + GameManager.instance.GetBestTotalTime().ToString() + " seconds";
         else
             bestScoreText.text = "Fastest Escape Time: None";
     }

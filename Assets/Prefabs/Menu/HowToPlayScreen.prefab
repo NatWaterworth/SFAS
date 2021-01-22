@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1119943803155662464
 RectTransform:
   m_ObjectHideFlags: 0
@@ -140,8 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DETECTION WILL CAUSE THE LEVEL TO RESTART. BUT PLAYTHROUGH TIME WILL STILL
-    BE RECORDED.
+  m_text: YOU CAN ONLY BE DETECTED BY THE GUARDS AND THE SECUIRITY CAMERAS.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e99f0f0912c9d348af62606b6f856c8, type: 2}
   m_sharedMaterial: {fileID: -1870942046079440753, guid: 6e99f0f0912c9d348af62606b6f856c8, type: 2}
@@ -528,7 +527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1119943803505560605
 RectTransform:
   m_ObjectHideFlags: 0

@@ -15,8 +15,8 @@ MonoBehaviour:
   _beats:
   - _choices:
     - _text: Hack?
-      _beatId: 2
-    _text: Secuirity Camera Selected...
+      _beatId: 6
+    _text: 'Secuirity Camera Hacked.      '
     _id: 1
   - _choices:
     - _text: Continue?

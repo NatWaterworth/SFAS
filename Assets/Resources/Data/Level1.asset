@@ -16,10 +16,15 @@ MonoBehaviour:
   - _choices:
     - _text: New Beat Choice
       _beatId: 2
-    _text: Look at map on the right screen.
+    _text: 'Look at map on the right screen.                                                               '
     _id: 1
   - _choices:
     - _text: New Beat Choice
-      _beatId: 1
-    _text: Click on something to try hack it.
+      _beatId: 3
+    _text: 'Click on something to try hack it.                                                                                                                      '
     _id: 2
+  - _choices:
+    - _text: New Beat Choice
+      _beatId: 1
+    _text: 'You''re the best, you can do this!                                                             '
+    _id: 3

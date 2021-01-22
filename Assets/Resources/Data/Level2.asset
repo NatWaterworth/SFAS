@@ -10,33 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf5d5e33bab057c43929a11bc8f25f44, type: 3}
-  m_Name: Door
+  m_Name: Level2
   m_EditorClassIdentifier: 
   _beats:
   - _choices:
     - _text: New Beat Choice
-      _beatId: 3
-    _text: 'Door Hacked.      '
+      _beatId: 2
+    _text: 'This looks a little harder. Now there is two Guards and an Alarm.                                                                               '
     _id: 1
   - _choices:
     - _text: New Beat Choice
       _beatId: 3
-    _text: Success!
+    _text: 'Let''s see what the Alarm can do.                                                                                                                  '
     _id: 2
   - _choices:
-    - _text: Lock Door
-      _beatId: 4
-    - _text: Unlock Door
-      _beatId: 5
-    _text: 'Choose Command:'
+    - _text: New Beat Choice
+      _beatId: 1
+    _text: 'Maybe the alarm can draw the Guards attention.                                                                              '
     _id: 3
-  - _choices:
-    - _text: New Beat Choice
-      _beatId: 3
-    _text: Door LOCKED!
-    _id: 4
-  - _choices:
-    - _text: New Beat Choice
-      _beatId: 3
-    _text: Door UNLOCKED!
-    _id: 5

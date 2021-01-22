@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,12 +11,16 @@ public class Guard : Character
         MirroredPatrol, //Navigates waypoints list from top to bottom, then bottom to top and repeats
         LoopingPatrol,  //Navigates waypoints list from top to bottom and repeats
         RandomPatrol, //Chooses from the set of waypoints to travel to at random
-        Pursuit //Detected Player and navigates to player location
+        Pursuit, //Detected Player and navigates to player location
+        Guard //Detected Player and navigates to player location
 
     }
 
     NavMeshAgent agent;
 
+    #region Guard Variables
+    Vector3 guardPosition;
+    #endregion
     #region Patrol Variables
 
     [Header("Patrol Variables")][Space]
@@ -76,7 +79,9 @@ public class Guard : Character
             waypoints = waypointManager.GetAllWaypoints();
 
         detector = new PlayerDetector();
-        
+
+
+        guardPosition = transform.position;
 
         if (head != null)
         {            
@@ -106,7 +111,9 @@ public class Guard : Character
             case GaurdState.RandomPatrol:
                 OnRandomPatrol();
                 break;
-
+            case GaurdState.Guard:
+                GuardStance();
+                break;
         }
 
         //Look out for the player
@@ -165,7 +172,7 @@ public class Guard : Character
                 currentIndex++;
                 currentIndex = currentIndex % waypoints.Count;
                 GoToPosition(waypoints[currentIndex].GetPosition());
-
+                SetMoveSpeed(patrolSpeed);
                 waited = false;
             }
         }
@@ -197,14 +204,14 @@ public class Guard : Character
 
                 GoToPosition(waypoints[currentIndex].GetPosition());
                 currentIndex = mirroredIndex; //reset index to actual value
-
+                SetMoveSpeed(patrolSpeed);
                 waited = false;
             }
         }
     }
 
     /// <summary>
-    /// An agent behaviour: agent goes any of the waypoints available that isn't the same as the last if possible.
+    /// An agent behaviour: agent goes to any of the waypoints available.
     /// </summary>
     void OnRandomPatrol()
     {
@@ -219,11 +226,22 @@ public class Guard : Character
             {
                 currentIndex = Random.Range(0, waypoints.Count);
                 GoToPosition(waypoints[currentIndex].GetPosition());
-
+                SetMoveSpeed(patrolSpeed);
                 waited = false;
             }
         }
     }
+
+    /// <summary>
+    /// An agent behaviour: agent goes any of the waypoints available that isn't the same as the last if possible.
+    /// </summary>
+    public void Investigate(Vector3 _worldPosition)
+    {
+        GoToPosition(_worldPosition);
+        SetMoveSpeed(alertSpeed);
+    }
+
+
 
     /// <summary>
     /// Check if the agent has reached its destination.
@@ -255,6 +273,46 @@ public class Guard : Character
         return true;
     }
 
+    /// <summary>
+    /// Finds the distance that the guard would have to travel to point on Navmesh.
+    /// </summary>
+    /// <param name="_worldPosition">point to travel to.</param>
+    /// <returns>Distance the guard must travel.</returns>
+    public float GetTravelDistanceToPoint(Vector3 _worldPosition)
+    {
+        NavMeshPath _path = new NavMeshPath();
+        if (agent.CalculatePath(_worldPosition, _path))
+        {
+            // Create an array of points which is the length of the number of corners in the path + 2.
+            Vector3[] waypoints = new Vector3[_path.corners.Length + 2];
+
+            //starting point is the guard position
+            waypoints[0] = transform.position;
+
+            // The last point is destination point 
+            waypoints[waypoints.Length - 1] = _worldPosition;
+
+            // The points inbetween are the corners of the path.
+            for (int i = 0; i < _path.corners.Length; i++)
+            {
+                waypoints[i + 1] = _path.corners[i];
+            }
+
+            float totalDistance = 0;
+
+            // Add each segment of the path
+            for (int i = 0; i < waypoints.Length - 1; i++)
+            {
+                totalDistance += Vector3.Distance(waypoints[i], waypoints[i + 1]);
+            }
+
+            return totalDistance;
+        }
+
+
+        return Mathf.Infinity;
+    }
+
 
     void StartWaiting()
     {
@@ -273,6 +331,22 @@ public class Guard : Character
             waited = true;
             currentState = previousState;
             previousState = GaurdState.Idle;
+        }
+    }
+    /// <summary>
+    /// An agent behaviour: remains stationary but responds to alerts.
+    /// </summary>
+    void GuardStance()
+    {
+        if (ReachedDestination())
+        {
+            if (!waited)
+                StartWaiting();
+            else
+            {
+                GoToPosition(guardPosition);
+                waited = false;
+            }
         }
     }
 

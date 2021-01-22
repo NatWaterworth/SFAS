@@ -32,7 +32,8 @@ public class LevelManager : MonoBehaviour
         Playing,
         Paused,
         HowToPlayScreen,
-        Caught
+        Caught,
+        Complete
     }
 
     [Header("Level Information")]
@@ -193,6 +194,19 @@ public class LevelManager : MonoBehaviour
                 SetTimePaused(true);
                 SetCursorActive(true);
                 break;
+
+            case GameState.Complete:
+                SetLevelInteractions(false);
+                SetTimePaused(false);
+                SetCursorActive(true);
+                break;
+
+            case GameState.Caught:
+                SetLevelInteractions(false);
+                SetTimePaused(false);
+                EndLevelAsFailed();
+                SetCursorActive(true);
+                break;
         }
     }
 
@@ -305,8 +319,14 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void PlayerDetected()
     {
+        SwitchCurrentState(GameState.Caught);     
+    }
+
+    void EndLevelAsFailed()
+    {
         if (!detected)
         {
+
             detected = true;
             StartCoroutine(LevelFailed());
 
@@ -315,7 +335,6 @@ public class LevelManager : MonoBehaviour
                 SoundManager.instance.PlaySoundEffect("Alert");
             }
         }
-        
     }
 
     void CheckLevelComplete()
@@ -323,6 +342,8 @@ public class LevelManager : MonoBehaviour
         if (EndLevelArea.IsLevelComplete() && !complete)
         {
             complete = true;
+            SwitchCurrentState(GameState.Complete);
+            
 
             if (SoundManager.instance != null)
             {

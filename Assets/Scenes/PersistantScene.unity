@@ -1049,6 +1049,12 @@ MonoBehaviour:
     pitch: 1.74
     source: {fileID: 0}
     loop: 0
+  - name: Alarm
+    clip: {fileID: 8300000, guid: 77fbef68836bdb1468c82a97954c168d, type: 3}
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
   music:
   - name: Sneak Music
     clip: {fileID: 8300000, guid: 19e35ed4733da154494a18403d9b20c2, type: 3}

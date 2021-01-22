@@ -47,7 +47,8 @@ public class GameManager : MonoBehaviour
         Manager = 0,
         MainMenu = 1,
         Level1 = 2,
-        EndGame = 3
+        Level2 = 3,
+        EndGame = 4
     }
 
     #region Scene Management
@@ -267,7 +268,7 @@ public class GameManager : MonoBehaviour
             SoundManager.instance.StopMusic("Menu Music");
         }
 
-        SetCursorVisible(false);
+        //SetCursorVisible(false);
 
         //Activate Scene now player is ready.
         if (loadScene != null)
