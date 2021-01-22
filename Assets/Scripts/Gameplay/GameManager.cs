@@ -9,21 +9,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [System.Serializable]
-    struct MenuSet
-    {
-        public string name;
-        public GameObject menuParent;
-    }
-
-  
-
     List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
-
     AsyncOperation loadScene;
 
-    [Header("Menu Sets")]
-    [SerializeField] MenuSet[] menuSets;
 
     [Header("Loading Screen")]
     [SerializeField] [Tooltip("Added delay to loading time (so player can see bar load up if it's too quick)")] float loadingDelay = 1f;
@@ -86,50 +74,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Displays Pause Menu (Turns off other active menu's on use).
-    /// </summary>
-    public void ViewPauseMenu()
-    {
-        SetActiveUI("Pause Menu");
-    }
-
-    /// <summary>
-    /// Displays How to Play Screen (Turns off other active menu's on use).
-    /// </summary>
-    public void ViewHowToPlayScreen()
-    {
-        SetActiveUI("How To Play Screen");
-    }
-
-    /// <summary>
-    /// Displays HUD (Turns off other active menu's on use).
-    /// </summary>
-    public void ViewHUD()
-    {
-        SetActiveUI("");
-    }
-
-
-    void SetActiveUI(string uiSetName)
-    {
-        int matches = 0;
-        foreach(MenuSet set in menuSets)
-        {
-            if (uiSetName.Equals(set.name))
-            {
-                set.menuParent.SetActive(true);
-                matches++;
-            }
-            else
-                set.menuParent.SetActive(false);
-        }
-
-        if(matches != 1 && uiSetName == "")
-        {
-            Debug.LogWarning(this+ " found an unexpected number of UI Sets to activate: " + matches);
-        }
-    }
 
     public void PlayerInvokeContinue(bool _continue)
     {

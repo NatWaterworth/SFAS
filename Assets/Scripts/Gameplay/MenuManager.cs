@@ -7,16 +7,20 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI bestScoreText;
 
+    [System.Serializable]
+    struct MenuSet
+    {
+        public string name;
+        public GameObject menuParent;
+    }
+
+    [Header("Menu Sets")]
+    [SerializeField] MenuSet[] menuSets;
+
     // Start is called before the first frame update
     void Start()
     {
         SetBestScore();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     /// <summary>
@@ -69,6 +73,42 @@ public class MenuManager : MonoBehaviour
         if (SoundManager.instance != null)
         {
             SoundManager.instance.PlaySoundEffect("Click");
+        }
+    }
+
+    /// <summary>
+    /// Displays How to Play Screen (Turns off other active menu's on use).
+    /// </summary>
+    public void DisplayHowToPlayScreen()
+    {
+        SetActiveUI("How To Play Screen");
+    }
+
+    /// <summary>
+    /// Displays How to Play Screen (Turns off other active menu's on use).
+    /// </summary>
+    public void DisplayMainMenu()
+    {
+        SetActiveUI("Main Menu");
+    }
+
+    void SetActiveUI(string uiSetName)
+    {
+        int matches = 0;
+        foreach (MenuSet set in menuSets)
+        {
+            if (uiSetName.Equals(set.name))
+            {
+                set.menuParent.SetActive(true);
+                matches++;
+            }
+            else
+                set.menuParent.SetActive(false);
+        }
+
+        if (matches != 1 && uiSetName == "")
+        {
+            Debug.LogWarning(this + " found an unexpected number of UI Sets to activate: " + matches);
         }
     }
 

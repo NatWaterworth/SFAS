@@ -6,6 +6,26 @@ using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
+    public static LevelManager instance;
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Debug.LogError("More than 1 instance of level manager exists!");
+    }
+
+    [System.Serializable]
+    struct MenuSet
+    {
+        public string name;
+        public GameObject menuParent;
+    }
+
+    [Header("Menu Sets")]
+    [SerializeField] MenuSet[] menuSets;
+
     public enum GameState
     {
         Intro,
@@ -15,6 +35,7 @@ public class LevelManager : MonoBehaviour
         Caught
     }
 
+    [Header("Level Information")]
     [SerializeField] GameState currentState;
     [SerializeField] bool acceptingInput;
     [SerializeField] StoryData levelData;
@@ -167,34 +188,54 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    void DisplayPauseMenu()
+    public void GoToPlayState()
     {
-        if (GameManager.instance != null)
-        {
-            GameManager.instance.ViewPauseMenu();
-        }
-        else
-            Debug.LogError(this + " found no instance of GameManager!");
+        SwitchCurrentState(GameState.Playing);
     }
 
-    void DisplayHUD()
+    /// <summary>
+    /// Displays Pause Menu (Turns off other active menu's on use).
+    /// </summary>
+    public void DisplayPauseMenu()
     {
-        if (GameManager.instance != null)
-        {
-            GameManager.instance.ViewHUD();
-        }
-        else
-            Debug.LogError(this + " found no instance of GameManager!");
+        SetActiveUI("Pause Menu");
     }
 
-    void DisplayHowToPlayScreen()
+    /// <summary>
+    /// Displays How to Play Screen (Turns off other active menu's on use).
+    /// </summary>
+    public void DisplayHowToPlayScreen()
     {
-        if (GameManager.instance != null)
+        SetActiveUI("How To Play Screen");
+    }
+
+    /// <summary>
+    /// Displays HUD (Turns off other active menu's on use).
+    /// </summary>
+    public void DisplayHUD()
+    {
+        SetActiveUI("");
+    }
+
+
+    void SetActiveUI(string uiSetName)
+    {
+        int matches = 0;
+        foreach (MenuSet set in menuSets)
         {
-            GameManager.instance.ViewHowToPlayScreen();
+            if (uiSetName.Equals(set.name))
+            {
+                set.menuParent.SetActive(true);
+                matches++;
+            }
+            else
+                set.menuParent.SetActive(false);
         }
-        else
-            Debug.LogError(this + " found no instance of GameManager!");
+
+        if (matches != 1 && uiSetName == "")
+        {
+            Debug.LogWarning(this + " found an unexpected number of UI Sets to activate: " + matches);
+        }
     }
 
     /// <summary>
