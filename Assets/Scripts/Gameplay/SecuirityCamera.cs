@@ -116,9 +116,9 @@ public class SecuirityCamera : ElectronicDevice
 
     }
 
-    public override void SetDeviceState(string _stateInfo)
+    public override void UpdateDeviceState(string _stateInfo)
     {
-        base.SetDeviceState(_stateInfo);
+        base.UpdateDeviceState(_stateInfo);
 
         if (_stateInfo.Contains("static"))
             SetCameraState(CameraState.Static);

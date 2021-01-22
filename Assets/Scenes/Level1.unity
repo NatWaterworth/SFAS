@@ -1673,6 +1673,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7932672451048369445, guid: a1a74ef5de6871146a7b579fc80c3efd, type: 3}
   m_PrefabInstance: {fileID: 561911106}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &570781989 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4968599447555887884, guid: dad4010843f5396478668c3501926c35, type: 3}
+  m_PrefabInstance: {fileID: 5666220471270477958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa802ddbcc3905e4ab5cac67133ad040, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &583254826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1683,7 +1694,6 @@ GameObject:
   m_Component:
   - component: {fileID: 583254827}
   - component: {fileID: 583254830}
-  - component: {fileID: 583254829}
   - component: {fileID: 583254828}
   - component: {fileID: 583254831}
   m_Layer: 8
@@ -1767,14 +1777,6 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
---- !u!81 &583254829
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 583254826}
-  m_Enabled: 1
 --- !u!20 &583254830
 Camera:
   m_ObjectHideFlags: 0
@@ -5968,8 +5970,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4661707446102737652}
-  - component: {fileID: 5474801089994758224}
-  - component: {fileID: 5474801089994758223}
   m_Layer: 8
   m_Name: HackerIntroTransform
   m_TagString: Untagged
@@ -5977,46 +5977,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5474801089994758223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5474801089994758222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baada67adc9510d4bb581676a1e918bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animate: 0
-  bodyPart: {fileID: 0}
-  rightHandHoldPoint: {fileID: 0}
-  mouseStationaryPoint: {fileID: 0}
-  ObjectCentralStartingPoint: {fileID: 38091511}
-  minMousePosition: {x: -0.5, y: -0.5}
-  maxMousePosition: {x: 0.5, y: 0.5}
-  mouseController: {fileID: 7893436622283922519}
-  introTransform: {fileID: 0}
---- !u!95 &5474801089994758224
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5474801089994758222}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 972fc84ea04661645ad9893b565bd7fb, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &5483962210071019965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6076,6 +6036,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 7893436622283922517}
+    - target: {fileID: 5483962209754586727, guid: ab82c67aaf254164aa2503234014b91f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab82c67aaf254164aa2503234014b91f, type: 3}
 --- !u!1001 &5666220471270477958
@@ -6580,7 +6544,7 @@ MonoBehaviour:
   defaultCursorColour: {r: 0.9529412, g: 1, b: 0.13725491, a: 1}
   highlightedCursorColour: {r: 0.36964417, g: 1, b: 0, a: 1}
   screenPosPercentage: {x: 0, y: 0}
-  selectedDevice: {fileID: 0}
+  selectedDevice: {fileID: 570781989}
 --- !u!114 &7893436622283922520
 MonoBehaviour:
   m_ObjectHideFlags: 0

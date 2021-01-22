@@ -52,9 +52,9 @@ public class ElectronicDevice : MonoBehaviour
         return data;
     }
 
-    public virtual void SetDeviceState(string _stateInfo)
+    public virtual void UpdateDeviceState(string _stateInfo)
     {
-
+        Debug.Log("Setting: " + this);
     }
 
 }

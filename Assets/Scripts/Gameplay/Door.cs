@@ -20,13 +20,16 @@ public class Door : ElectronicDevice
     }
 
     #region Door Mechanical Variables
-    [Header("Door Variables")]
+    [Header("Door Mechanics")]
     [SerializeField] DoorState state;
     [SerializeField] AnimationCurve animationCurve;
     [SerializeField] [Min(0)] float transitionSpeed;
     [SerializeField] DoorPanel leftDoor,rightDoor;
+    [Header("Door Lock Visuals")]
     [SerializeField] bool locked;
-    [SerializeField] Light light;
+    [SerializeField] Light frontIndicatorLight, backIndicatorLight;
+    [SerializeField] MeshRenderer lockIndicatorFront, lockIndicatorBack;
+    [SerializeField] Material lockedMaterial, unlockedMaterial;
 
     float openPercentage;
     [SerializeField] BoxCollider detectionCollider;
@@ -63,9 +66,9 @@ public class Door : ElectronicDevice
 
     }
 
-    public override void SetDeviceState(string _stateInfo)
+    public override void UpdateDeviceState(string _stateInfo)
     {
-        base.SetDeviceState(_stateInfo);
+        base.UpdateDeviceState(_stateInfo);
         Debug.Log("State Info: " + _stateInfo);
         if (_stateInfo.Contains("Door UNLOCKED"))
             LockDoor(false);
@@ -122,17 +125,45 @@ public class Door : ElectronicDevice
                 lockedSymbol.color = unlockedColour;
             }
         }
+        else
+        {
+            Debug.LogWarning(this + " doesn't have an locked Symbol set!");
+        }
 
-        if (light != null)
+        if (frontIndicatorLight != null && backIndicatorLight != null)
         {
             if (locked)
             {
-                light.color = lockedColour;
+                frontIndicatorLight.color = lockedColour;
+                backIndicatorLight.color = lockedColour;
             }
             else
             {
-                light.color = unlockedColour;
+                frontIndicatorLight.color = unlockedColour;
+                backIndicatorLight.color = unlockedColour;
             }
+        }
+        else
+        {
+            Debug.LogWarning(this + " doesn't have an indicator light set!");
+        }
+
+        if (lockIndicatorFront != null && lockIndicatorBack != null && lockedMaterial != null && unlockedMaterial != null)
+        {
+            if (locked)
+            {
+                lockIndicatorFront.material = lockedMaterial;
+                lockIndicatorBack.material = lockedMaterial;
+            }
+            else
+            {
+                lockIndicatorFront.material = unlockedMaterial;
+                lockIndicatorBack.material = unlockedMaterial;
+            }
+        }
+        else
+        {
+            Debug.LogWarning(this + " doesn't have an indicator variable set!");
         }
     }
 

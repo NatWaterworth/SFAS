@@ -43,15 +43,15 @@ public class MiniMapSelector : MonoBehaviour
         MoveMouseCursor();
         SelectHackableDevice();
 
-        SetDeviceState();
+        UpdateDeviceState();
     }
 
-    public void SetDeviceState()
+    public void UpdateDeviceState()
     {
-        if (selectedDevice == null)
-            return;
-
-        SetSecuirityDeviceState();
+        if (selectedDevice != null)
+        {
+            selectedDevice.UpdateDeviceState(console.GetCurrentBeatText());
+        }
     }
     /// <summary>
     /// Set whether player mouse input is used to update MiniMapSelector.
@@ -91,12 +91,6 @@ public class MiniMapSelector : MonoBehaviour
             activeMouseImage.color = defaultCursorColour;
         }
         
-    }
-
-    void SetSecuirityDeviceState()
-    {
-        if (selectedDevice != null)
-            selectedDevice.SetDeviceState(console.GetCurrentBeatText());
     }
 
     void RaycastToMap()

@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
     [Header("Level Information")]
     [SerializeField] GameState currentState;
     [SerializeField] bool acceptingInput;
-    [SerializeField] StoryData levelData;
+    [SerializeField] StoryData levelData, introData;
 
     float totalLevelTime;
     [SerializeField] TextMeshProUGUI timeText;
@@ -475,6 +475,9 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator IntroScene()
     {
+        if (console != null)
+            console.SetConsoleInformation(introData);
+
         yield return new WaitForSeconds(1);
 
         if (cinematicCamera.GetCinematicTime() > 0)
@@ -492,12 +495,13 @@ public class LevelManager : MonoBehaviour
             transitioner.MaskTransition(transitionTime, 0.05f, 0.2f, false);
             yield return new WaitForSeconds(transitionTime / 2);
 
+            //Once intro is complete...
+
             SetCameraToPlayer(true);
-
-            // if(hackerTypingTime > 0)
-            //     yield return new WaitForSeconds(hackerTypingTime);
-
             playerCamera.SetCameraToFocused(true);
+
+            if (console != null)
+                console.SetConsoleInformation(levelData);
 
             //Switch to Main menu after Game Intro
             SwitchCurrentState(GameState.Playing);
