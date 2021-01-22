@@ -9,14 +9,24 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [SerializeField][Tooltip("Added delay to loading time (so player can see bar load up if it's too quick)")] float loadingDelay =1f;
+    [System.Serializable]
+    struct MenuSet
+    {
+        public string name;
+        public GameObject menuParent;
+    }
+
+  
 
     List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
     AsyncOperation loadScene;
 
+    [Header("Menu Sets")]
+    [SerializeField] MenuSet[] menuSets;
 
     [Header("Loading Screen")]
+    [SerializeField] [Tooltip("Added delay to loading time (so player can see bar load up if it's too quick)")] float loadingDelay = 1f;
     [SerializeField] Slider loadingBar;
     [SerializeField] TextMeshProUGUI loadingMessage;
     [SerializeField] TextMeshProUGUI loadingTitle;
@@ -24,8 +34,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI buttonText;
     [SerializeField] Color disabledButtonColour, enabledButtonColour;
 
+
+
+    //Playthrough Timings
     float currentTotalPlayTime = 0;
     float bestTotalPlayTime;
+
     //used to check if the player wishes to continue.
     bool playerContinue;
 
@@ -69,6 +83,51 @@ public class GameManager : MonoBehaviour
         if (SoundManager.instance != null)
         {
             SoundManager.instance.PlayMusic("Menu Music");
+        }
+    }
+
+    /// <summary>
+    /// Displays Pause Menu (Turns off other active menu's on use).
+    /// </summary>
+    public void ViewPauseMenu()
+    {
+        SetActiveUI("Pause Menu");
+    }
+
+    /// <summary>
+    /// Displays How to Play Screen (Turns off other active menu's on use).
+    /// </summary>
+    public void ViewHowToPlayScreen()
+    {
+        SetActiveUI("How To Play Screen");
+    }
+
+    /// <summary>
+    /// Displays HUD (Turns off other active menu's on use).
+    /// </summary>
+    public void ViewHUD()
+    {
+        SetActiveUI("");
+    }
+
+
+    void SetActiveUI(string uiSetName)
+    {
+        int matches = 0;
+        foreach(MenuSet set in menuSets)
+        {
+            if (uiSetName.Equals(set.name))
+            {
+                set.menuParent.SetActive(true);
+                matches++;
+            }
+            else
+                set.menuParent.SetActive(false);
+        }
+
+        if(matches != 1 && uiSetName == "")
+        {
+            Debug.LogWarning(this+ " found an unexpected number of UI Sets to activate: " + matches);
         }
     }
 
@@ -311,4 +370,11 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
+
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
 }

@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
         Intro,
         Playing,
         Paused,
+        HowToPlayScreen,
         Caught
     }
 
@@ -109,6 +110,30 @@ public class LevelManager : MonoBehaviour
         }
     }
      
+    /// <summary>
+    /// Manages the inputs for navigating and activating Menus.
+    /// </summary>
+    void ManageMenuInput()
+    {
+        if (Input.GetButtonDown("Escape"))
+        {
+            //Manage what pressing Escape does in each state.
+            switch (currentState)
+            {
+                case GameState.Playing:
+                    SwitchCurrentState(GameState.Paused);
+                    break;
+
+                case GameState.Paused:
+                    SwitchCurrentState(GameState.Playing);
+                    break;
+
+                case GameState.HowToPlayScreen:
+                    SwitchCurrentState(GameState.Paused);
+                    break;
+            }
+        }
+    }
 
     /// <summary>
     /// Called once when switching states in a game.
@@ -122,12 +147,54 @@ public class LevelManager : MonoBehaviour
         {
             case GameState.Intro:
                 CinematicIntro();
+                SetLevelInteractions(false);
                 break;
+
             case GameState.Playing:
+                DisplayHUD();
+                SetLevelInteractions(true);
                 break;
+
             case GameState.Paused:
+                DisplayPauseMenu();
+                SetLevelInteractions(false);
+                break;
+
+            case GameState.HowToPlayScreen:
+                DisplayHowToPlayScreen();
+                SetLevelInteractions(false);
                 break;
         }
+    }
+
+    void DisplayPauseMenu()
+    {
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.ViewPauseMenu();
+        }
+        else
+            Debug.LogError(this + " found no instance of GameManager!");
+    }
+
+    void DisplayHUD()
+    {
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.ViewHUD();
+        }
+        else
+            Debug.LogError(this + " found no instance of GameManager!");
+    }
+
+    void DisplayHowToPlayScreen()
+    {
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.ViewHowToPlayScreen();
+        }
+        else
+            Debug.LogError(this + " found no instance of GameManager!");
     }
 
     /// <summary>
@@ -237,6 +304,25 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Sets level interactions to True or False.
+    /// </summary>
+    /// <param name="_acceptingInput"></param>
+    void SetLevelInteractions(bool _acceptingInput)
+    {
+        acceptingInput = _acceptingInput;
+
+        //Ensure player can't interact with map before intro is complete.
+        if (miniMap != null)
+            miniMap.SetTakingInput(acceptingInput);
+
+        if (console != null)
+            console.SetAcceptingInput(acceptingInput);
+
+        if (player != null)
+            player.SetAcceptingInput(acceptingInput);
+    }
+
+    /// <summary>
     /// Called every frame for running current state updates.
     /// </summary>
     void RunCurrentState()
@@ -248,8 +334,13 @@ public class LevelManager : MonoBehaviour
             case GameState.Playing:
                 IncrementLevelTime();
                 CheckLevelComplete();
+                ManageMenuInput();
                 break;
             case GameState.Paused:
+                ManageMenuInput();
+                break;
+            case GameState.HowToPlayScreen:
+                ManageMenuInput();
                 break;
         }
     }
@@ -289,21 +380,9 @@ public class LevelManager : MonoBehaviour
         if (transitioner != null)
         {
             float transitionTime = 1f;
-            acceptingInput = false;
-
-            SetCameraToPlayer(false);
-            
+          
+            SetCameraToPlayer(false);           
             SetHackerIntroAnimation();
-
-            //Ensure player can't interact with map before intro is complete.
-            if (miniMap != null)
-                miniMap.SetTakingInput(acceptingInput);
-
-            if(console!=null)
-                console.SetAcceptingInput(acceptingInput);
-
-            if (player != null)
-                player.SetAcceptingInput(acceptingInput);
 
             //Sync up with transition so when fully masked it changes camera.
             yield return new WaitForSeconds(cinematicTime - (transitionTime / 2));
@@ -316,21 +395,6 @@ public class LevelManager : MonoBehaviour
             //     yield return new WaitForSeconds(hackerTypingTime);
 
             playerCamera.SetCameraToFocused(true);
-
-            acceptingInput = true;
-
-            //Ensure player can now interact
-            if (miniMap != null)
-                miniMap.SetTakingInput(acceptingInput);
-
-            if (console != null)
-            {
-                console.SetAcceptingInput(acceptingInput);
-                console.SetConsoleInformation(levelData);
-            }
-
-            if (player != null)
-                player.SetAcceptingInput(acceptingInput);
 
             //Switch to Main menu after Game Intro
             SwitchCurrentState(GameState.Playing);
