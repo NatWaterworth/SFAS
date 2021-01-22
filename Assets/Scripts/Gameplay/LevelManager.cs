@@ -136,7 +136,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     void ManageMenuInput()
     {
-        if (Input.GetButtonDown("Escape"))
+        if (Input.GetButtonDown("Cancel"))
         {
             //Manage what pressing Escape does in each state.
             switch (currentState)
@@ -191,6 +191,39 @@ public class LevelManager : MonoBehaviour
     public void GoToPlayState()
     {
         SwitchCurrentState(GameState.Playing);
+    }
+
+    public void GoToHowToPlayScreen()
+    {
+        SwitchCurrentState(GameState.HowToPlayScreen);
+    }
+
+    public void GoToPauseMenu()
+    {
+        SwitchCurrentState(GameState.Paused);
+    }
+
+    public void ClickSound()
+    {
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.PlaySoundEffect("Click");
+        }
+    }
+    public void HoverSound()
+    {
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.PlaySoundEffect("Hover");
+        }
+    }
+
+    public void ExitGame()
+    {
+        if (GameManager.instance != null)
+        { 
+            GameManager.instance.ExitGame();
+        }
     }
 
     /// <summary>

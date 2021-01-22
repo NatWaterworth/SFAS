@@ -92,6 +92,12 @@ public class MenuManager : MonoBehaviour
         SetActiveUI("Main Menu");
     }
 
+    public void ExitGame()
+    {
+        if (GameManager.instance != null)
+            GameManager.instance.ExitGame();
+    }
+
     void SetActiveUI(string uiSetName)
     {
         int matches = 0;
