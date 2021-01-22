@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
+
     AsyncOperation loadScene;
 
 
@@ -46,9 +47,7 @@ public class GameManager : MonoBehaviour
         Manager = 0,
         MainMenu = 1,
         Level1 = 2,
-        Level2 = 3,
-        Level3 = 4,
-        EndGame = 5
+        EndGame = 3
     }
 
     #region Scene Management
@@ -74,6 +73,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetTimePaused(bool _paused)
+    {
+        if (_paused)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
+    }
 
     public void PlayerInvokeContinue(bool _continue)
     {
@@ -128,7 +134,10 @@ public class GameManager : MonoBehaviour
 
         if (nextScene.Equals(SceneIndex.EndGame))
         {
-            bestTotalPlayTime = currentTotalPlayTime;
+            if(bestTotalPlayTime > currentTotalPlayTime || bestTotalPlayTime == 0)
+                bestTotalPlayTime = currentTotalPlayTime;
+            //Return to Main Menu for now.
+            nextScene = SceneIndex.MainMenu;
         }
 
         LoadScene(nextScene);
@@ -139,7 +148,7 @@ public class GameManager : MonoBehaviour
         LoadScene(currentScene);
     }
 
-    void SetCursorVisible(bool _visible)
+    public void SetCursorVisible(bool _visible)
     {
         Cursor.visible = _visible;
     }
@@ -283,6 +292,7 @@ public class GameManager : MonoBehaviour
 
     public void SetTotalLevelTime(float _totalLevelTime)
     {
+        _totalLevelTime = Mathf.Round(_totalLevelTime * 100f) / 100f;
         currentTotalPlayTime = _totalLevelTime;
     }
 

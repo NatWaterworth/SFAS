@@ -26,6 +26,7 @@ public class Door : ElectronicDevice
     [SerializeField] [Min(0)] float transitionSpeed;
     [SerializeField] DoorPanel leftDoor,rightDoor;
     [SerializeField] bool locked;
+    [SerializeField] Light light;
 
     float openPercentage;
     [SerializeField] BoxCollider detectionCollider;
@@ -119,6 +120,18 @@ public class Door : ElectronicDevice
             else
             {
                 lockedSymbol.color = unlockedColour;
+            }
+        }
+
+        if (light != null)
+        {
+            if (locked)
+            {
+                light.color = lockedColour;
+            }
+            else
+            {
+                light.color = unlockedColour;
             }
         }
     }

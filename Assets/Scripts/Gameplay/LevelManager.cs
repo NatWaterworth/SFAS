@@ -169,23 +169,51 @@ public class LevelManager : MonoBehaviour
             case GameState.Intro:
                 CinematicIntro();
                 SetLevelInteractions(false);
+                SetTimePaused(false);
+                SetCursorActive(false);
                 break;
 
             case GameState.Playing:
                 DisplayHUD();
                 SetLevelInteractions(true);
+                SetTimePaused(false);
+                SetCursorActive(false);
                 break;
 
             case GameState.Paused:
                 DisplayPauseMenu();
                 SetLevelInteractions(false);
+                SetTimePaused(true);
+                SetCursorActive(true);
                 break;
 
             case GameState.HowToPlayScreen:
                 DisplayHowToPlayScreen();
                 SetLevelInteractions(false);
+                SetTimePaused(true);
+                SetCursorActive(true);
                 break;
         }
+    }
+
+    void SetTimePaused(bool _paused)
+    {
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.SetTimePaused(_paused);
+        }
+        else
+            Debug.LogError(this + " could not find an instance of Game Manager!");
+    }
+
+    void SetCursorActive(bool _active)
+    {
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.SetCursorVisible(_active);
+        }
+        else
+            Debug.LogError(this + " could not find an instance of Game Manager!");
     }
 
     public void GoToPlayState()
@@ -210,6 +238,7 @@ public class LevelManager : MonoBehaviour
             SoundManager.instance.PlaySoundEffect("Click");
         }
     }
+
     public void HoverSound()
     {
         if (SoundManager.instance != null)
