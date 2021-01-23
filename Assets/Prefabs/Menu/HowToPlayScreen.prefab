@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1119943803155662464
 RectTransform:
   m_ObjectHideFlags: 0
@@ -544,7 +544,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 175.3, y: -711}
+  m_AnchoredPosition: {x: 175.29999, y: -659}
   m_SizeDelta: {x: 170, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1119943803505560603
@@ -796,7 +796,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1119943803654974733
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1886,7 +1886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1119943804126977404
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2429,7 +2429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 716, y: -342.75}
+  m_AnchoredPosition: {x: 716, y: -218.25}
   m_SizeDelta: {x: 815.3, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1119943804285614926
@@ -2460,10 +2460,24 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "RIGHT SCREEN - MAP OF THE LEVEL. USE THE MOUSE TO CLICK ON ICONS TO HACK
-    DEVICES. \n\nLEFT SCREEN - COMMAND CONSOLE. WHEN PROMPTED WITH A CHOICE PRESS
-    THE CORRESPONDING NUMBER ON THE KEYBOARD TO CONFIRM CHOICE.\n\nAGENT - PLAYER
-    ICON ON THE MAP. USE WASD TO NAVIGATE THE AGENT AROUND THE LEVEL."
+  m_text: 'HACK INTO DEVICES SHOWN ON THE MINI MAP (RIGHT LAPTOP SCREEN) WITH THE
+    LEFT CLICK OF THE MOUSE.
+
+
+    CHOOSE AN OPTION FOR HOW THE DEVICE SHOULD FUNCTION.
+    (PRESS 1 OR 2 - OPTIONS DISPLAYED ON LEFT LAPTOP SCREEN).
+
+
+    MOVE THE AGENT
+    IDENTIFIED ON THE MINI MAP TO THE END POINT (EXIT ICON) BY HACKING DEVICES AND
+    LURING GUARDS AWAY FROM THE AGENT WHILST NOT BEING DETECTED.
+
+
+    GUARDS AND
+    SECURITY CAMERAS CAN DETECT THE AGENT THROUGH LINE OF SIGHT GENERALLY INDICATED
+    BY THE CAMERA VIEW RANGE OR THE GUARD ICONS FORWARD DIRECTION.
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e99f0f0912c9d348af62606b6f856c8, type: 2}
   m_sharedMaterial: {fileID: -1870942046079440753, guid: 6e99f0f0912c9d348af62606b6f856c8, type: 2}
@@ -2566,7 +2580,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 161.3, y: -308.7}
+  m_AnchoredPosition: {x: 161.29999, y: -185.45001}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1119943804339648351
@@ -3228,7 +3242,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PLAYER
+  m_text: AGENT / PLAYER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e99f0f0912c9d348af62606b6f856c8, type: 2}
   m_sharedMaterial: {fileID: -1870942046079440753, guid: 6e99f0f0912c9d348af62606b6f856c8, type: 2}
