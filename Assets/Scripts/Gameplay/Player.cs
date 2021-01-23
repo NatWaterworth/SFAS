@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class Player : Character
 {
-
-    [SerializeField]
-    float moveSpeed;
+    [SerializeField] float moveSpeed;
 
     Vector3 lookDir;
     bool acceptInput;
@@ -40,10 +38,18 @@ public class Player : Character
     {
         //Move player across plane.
         Vector3 inputVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
-        rb.velocity = inputVector * moveSpeed;
-        if (!inputVector.Equals(Vector3.zero))
-            lookDir = inputVector;
-        transform.forward = lookDir;
+        if (inputVector.magnitude > 0)
+        {
+            rb.isKinematic = false;
+            rb.velocity = inputVector * moveSpeed;
+            if (!inputVector.Equals(Vector3.zero))
+                lookDir = inputVector;
+            transform.forward = lookDir;
+        }
+        else
+        {
+            rb.isKinematic = true;
+        }
     }
 
     protected override void Animate()

@@ -26,5 +26,5 @@ MonoBehaviour:
   - _choices:
     - _text: New Beat Choice
       _beatId: 1
-    _text: 'Maybe the alarm can draw the Guards attention.                                                                              '
+    _text: 'Maybe the Alarm can draw the Guards attention.                                                                              '
     _id: 3

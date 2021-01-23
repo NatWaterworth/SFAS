@@ -283,6 +283,10 @@ public class Guard : Character
         NavMeshPath _path = new NavMeshPath();
         if (agent.CalculatePath(_worldPosition, _path))
         {
+            if(!_path.status.Equals(NavMeshPathStatus.PathComplete))
+                return Mathf.Infinity;
+
+            Debug.Log("Guard Path Status:" + _path.status +" guard: " + agent.name);
             // Create an array of points which is the length of the number of corners in the path + 2.
             Vector3[] waypoints = new Vector3[_path.corners.Length + 2];
 

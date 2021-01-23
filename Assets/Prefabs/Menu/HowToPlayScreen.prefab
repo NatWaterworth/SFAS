@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: YOU CAN ONLY BE DETECTED BY THE GUARDS AND THE SECUIRITY CAMERAS.
+  m_text: YOU CAN ONLY BE DETECTED BY THE GUARDS AND THE SECURITY CAMERAS.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e99f0f0912c9d348af62606b6f856c8, type: 2}
   m_sharedMaterial: {fileID: -1870942046079440753, guid: 6e99f0f0912c9d348af62606b6f856c8, type: 2}
@@ -844,7 +844,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HACK INTO ELECTRONIC DEVICES TO ALLOW THE AGENT TO PASS THROUGH THE FACILIY
+  m_text: HACK INTO ELECTRONIC DEVICES TO ALLOW THE AGENT TO PASS THROUGH THE FACILITY
     UNDETECTED.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e99f0f0912c9d348af62606b6f856c8, type: 2}
@@ -2462,7 +2462,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "RIGHT SCREEN - MAP OF THE LEVEL. USE THE MOUSE TO CLICK ON ICONS TO HACK
     DEVICES. \n\nLEFT SCREEN - COMMAND CONSOLE. WHEN PROMPTED WITH A CHOICE PRESS
-    THE CORRESESPONDING NUMBER ON THE KEYBOARD TO CONFIRM CHOICE.\n\nAGENT - PLAYER
+    THE CORRESPONDING NUMBER ON THE KEYBOARD TO CONFIRM CHOICE.\n\nAGENT - PLAYER
     ICON ON THE MAP. USE WASD TO NAVIGATE THE AGENT AROUND THE LEVEL."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e99f0f0912c9d348af62606b6f856c8, type: 2}
@@ -2526,7 +2526,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -215.74533}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2808,7 +2808,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SECUIRITY CAMERA
+  m_text: SECURITY CAMERA
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e99f0f0912c9d348af62606b6f856c8, type: 2}
   m_sharedMaterial: {fileID: -1870942046079440753, guid: 6e99f0f0912c9d348af62606b6f856c8, type: 2}

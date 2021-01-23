@@ -16,7 +16,7 @@ MonoBehaviour:
   - _choices:
     - _text: New Beat Choice
       _beatId: 2
-    _text: 'We can''t get past with those Gaurds in the way.                                                                                                          '
+    _text: 'We can''t get past with those Guards in the way.                                                                                                          '
     _id: 1
   - _choices:
     - _text: New Beat Choice
