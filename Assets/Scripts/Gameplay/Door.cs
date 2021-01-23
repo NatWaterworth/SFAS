@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class Door : ElectronicDevice
 {
@@ -17,6 +18,7 @@ public class Door : ElectronicDevice
         public GameObject panel;
         public Vector3 openPosition;
         public Vector3 closedPosition;
+        public NavMeshObstacle navMeshObstacle;
     }
 
     #region Door Mechanical Variables
@@ -48,6 +50,8 @@ public class Door : ElectronicDevice
     {
         resourcesDataPath = "Data/Door";
         base.Start();
+        //Set door to how it is in the inspector.
+        LockDoor(locked);
     }
 
     private void Update()
@@ -113,6 +117,24 @@ public class Door : ElectronicDevice
     public void LockDoor(bool _locked)
     {
         locked = _locked;
+
+        //Set whether AI can navigate through doors.
+
+        if (leftDoor.navMeshObstacle != null)
+        {
+            leftDoor.navMeshObstacle.enabled = locked;
+        }
+        else
+            Debug.LogError(this + " has not set navmeshobstacle for left door!");
+
+
+        if (rightDoor.navMeshObstacle != null)
+        {
+            rightDoor.navMeshObstacle.enabled = locked;
+        }
+        else
+            Debug.LogError(this + " has not set navmeshobstacle for right door!");
+
 
         if (lockedSymbol != null)
         {

@@ -48,7 +48,8 @@ public class GameManager : MonoBehaviour
         MainMenu = 1,
         Level1 = 2,
         Level2 = 3,
-        EndGame = 4
+        Level3 = 4,
+        EndGame = 5
     }
 
     #region Scene Management

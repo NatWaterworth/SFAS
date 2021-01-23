@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf5d5e33bab057c43929a11bc8f25f44, type: 3}
-  m_Name: Level2
+  m_Name: Level4
   m_EditorClassIdentifier: 
   _beats:
   - _choices:
     - _text: New Beat Choice
       _beatId: 2
-    _text: 'This looks a little harder. Now there are two Guards and an Alarm.                                                                               '
+    _text: 'We''re almost there. The extraction point is just through that exit!                                                                                                     '
     _id: 1
   - _choices:
     - _text: New Beat Choice
       _beatId: 3
-    _text: 'Let''s see what the Alarm can do.                                                                                                                  '
+    _text: 'Good luck agent!                                                '
     _id: 2
   - _choices:
     - _text: New Beat Choice
